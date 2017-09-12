@@ -12,22 +12,28 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.grean.dustdisplay.model.LoadConfig;
 import com.grean.dustdisplay.presenter.FragmentData;
 import com.grean.dustdisplay.presenter.FragmentOperate;
 import com.grean.dustdisplay.presenter.FragmentRealTime;
+import com.grean.dustdisplay.protocol.ProtocolLibs;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,SocketClientCtrl{
     private static final String tag="MainActivity";
     private View layoutRealTime,layoutOperate,layoutData;
     private FragmentRealTime fragmentRealTime;
     private FragmentOperate fragmentOperate;
     private FragmentData fragmentData;
     private FragmentManager fragmentManager;
+    private LoadConfig loadConfig;
+    private String serverIp;
+    private int serverPort;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -46,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("MainBroadcast");
         registerReceiver(broadcastReceiver,intentFilter);
+        loadConfig = new LoadConfig(this);
+        loadConfig.readConfig();
+        serverIp = loadConfig.getServerIp();
+        serverPort = loadConfig.getServerPort();
+        SocketTask.getInstance().startSocketHeart(serverIp,serverPort,this,this, ProtocolLibs.getInstance().getClientProtocol());
     }
 
     private void initView(){
@@ -154,5 +165,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+    }
+
+    @Override
+    public void endHeartThread() {
+        Log.d(tag,"end socket");
     }
 }

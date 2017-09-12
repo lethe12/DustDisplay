@@ -19,7 +19,7 @@ public class LoadConfig {
         ConfigOperate config = ConfigOperate.getInstance(context);
         if(!config.getConfigBoolean("FactorySetting")){
             config.saveConfig("FactorySetting",true);
-            serverIp = "192.168.168.184";
+            serverIp = "192.168.192.184";
             config.saveConfig("SeverIp",serverIp);
             serverPort = 8888;
             config.saveConfig("ServerPort",serverPort);
