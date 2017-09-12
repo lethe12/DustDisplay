@@ -1,52 +1,158 @@
 package com.grean.dustdisplay;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.grean.dustdisplay.presenter.FragmentData;
+import com.grean.dustdisplay.presenter.FragmentOperate;
+import com.grean.dustdisplay.presenter.FragmentRealTime;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final String tag="MainActivity";
+    private View layoutRealTime,layoutOperate,layoutData;
+    private FragmentRealTime fragmentRealTime;
+    private FragmentOperate fragmentOperate;
+    private FragmentData fragmentData;
+    private FragmentManager fragmentManager;
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initView();
+        fragmentManager = getFragmentManager();
+        setTabSelection(0);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("MainBroadcast");
+        registerReceiver(broadcastReceiver,intentFilter);
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    private void initView(){
+        layoutData = findViewById(R.id.layoutData);
+        layoutOperate = findViewById(R.id.layoutSetting);
+        layoutRealTime = findViewById(R.id.layoutRealTime);
+        layoutData.setOnClickListener(this);
+        layoutRealTime.setOnClickListener(this);
+        layoutOperate.setOnClickListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /**
+     * 清除选中状态
+     */
+    private void clearSelection(){
+        layoutData.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
+        layoutOperate.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
+        layoutRealTime.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
+    }
+
+    private void  hideFragment(FragmentTransaction transaction){
+        if(fragmentData!=null){
+            transaction.hide(fragmentData);
         }
+        if(fragmentOperate!=null){
+            transaction.hide(fragmentOperate);
+        }
+        if(fragmentRealTime!=null){
+            transaction.hide(fragmentRealTime);
+        }
+    }
 
-        return super.onOptionsItemSelected(item);
+    private void setTabSelection(int index){
+        clearSelection();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        hideFragment(transaction);
+        switch (index){
+            case 0:
+            default:
+                layoutRealTime.setBackgroundColor(Resources.getSystem().getColor(android.R.color.background_light));
+                if(fragmentRealTime == null){
+                    fragmentRealTime = new FragmentRealTime();
+                    transaction.add(R.id.content,fragmentRealTime).commit();
+                }else {
+                    if(fragmentRealTime.isAdded()){
+                        transaction.show(fragmentRealTime).commit();
+                    }else{
+                        transaction.add(R.id.content,fragmentRealTime).commit();
+                    }
+                }
+                break;
+            case 1:
+                layoutOperate.setBackgroundColor(Resources.getSystem().getColor(android.R.color.background_light));
+                if(fragmentOperate == null){
+                    fragmentOperate = new FragmentOperate();
+                    transaction.add(R.id.content,fragmentOperate).commit();
+                }else {
+                    if(fragmentOperate.isAdded()){
+                        transaction.show(fragmentOperate).commit();
+                    }else{
+                        transaction.add(R.id.content,fragmentOperate).commit();
+                    }
+                }
+                break;
+            case 2:
+                layoutData.setBackgroundColor(Resources.getSystem().getColor(android.R.color.background_light));
+                if(fragmentData == null){
+                    fragmentData = new FragmentData();
+                    transaction.add(R.id.content,fragmentData).commit();
+                }else {
+                    if(fragmentData.isAdded()){
+                        transaction.show(fragmentData).commit();
+                    }else{
+                        transaction.add(R.id.content,fragmentData).commit();
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.layoutData:
+                setTabSelection(2);
+                break;
+            case R.id.layoutRealTime:
+                setTabSelection(0);
+                break;
+            case R.id.layoutSetting:
+                setTabSelection(1);
+                break;
+            default:
+
+                break;
+
+        }
     }
 }
