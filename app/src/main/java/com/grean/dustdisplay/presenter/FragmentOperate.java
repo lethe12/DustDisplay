@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.grean.dustdisplay.R;
 import com.grean.dustdisplay.model.LoadSetting;
+import com.grean.dustdisplay.model.OperateSystem;
 import com.grean.dustdisplay.protocol.SettingFormat;
 import com.tools;
 
@@ -35,6 +36,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     private Switch swAutoCalEnable;
     private LoadSetting setting;
     private View layoutDustMeter,layoutSystem;
+    private ProcessDialogFragment dialogFragment;
+    private OperateSystem system;
 
     private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString;
     private boolean autoCalEnable;
@@ -44,6 +47,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     private static final int msgShowSetting = 1;
     private static final int msgShowParaK = 2;
     private static final int msgShowToast = 3;
+    private static final int msgCancelDialog = 4;
+    private static final int msgCancelDialogWithToast = 5;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -71,6 +76,13 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 case msgShowToast:
                     Toast.makeText(getActivity(),toastString,Toast.LENGTH_SHORT).show();
                     break;
+                case msgCancelDialog:
+                    dialogFragment.dismiss();
+                    break;
+                case msgCancelDialogWithToast:
+                    dialogFragment.dismiss();
+                    Toast.makeText(getActivity(),toastString,Toast.LENGTH_SHORT).show();
+                    break;
                 default:
 
                     break;
@@ -85,6 +97,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         initView(view);
         setting = new LoadSetting(this);
         setting.loadSetting();
+        system = new OperateSystem();
         return view;
     }
 
@@ -159,7 +172,10 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 setting.saveServer(etServerIp.getText().toString(),etServerPort.getText().toString());
                 break;
             case R.id.btnOperateUpdateSoftware:
-
+                dialogFragment = new ProcessDialogFragment();
+                dialogFragment.setCancelable(true);
+                dialogFragment.show(getFragmentManager(),"DownLoadSoftware");
+                system.startDownLoadSoftware(getActivity(),etSoftwareUpdateUrl.getText().toString(),dialogFragment,this);
                 break;
             case R.id.btnOperateVideoPreview:
                 getActivity().startActivity(getActivity().getPackageManager().getLaunchIntentForPackage("com.mcu.iVMSHD"));
@@ -183,7 +199,10 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 setting.saveAutoCal(autoCalEnable,tvAutoCalDate.getText().toString(),etAutoCalInterval.getText().toString());
                 break;
             case R.id.btnOperateCalMan:
-
+                dialogFragment = new ProcessDialogFragment();
+                dialogFragment.setCancelable(false);
+                dialogFragment.show(getFragmentManager(),"Calibration");
+                setting.startDustMeterCal(dialogFragment);
                 break;
             default:
 
@@ -214,6 +233,17 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     public void showToast(String string) {
         this.toastString = string;
         handler.sendEmptyMessage(msgShowToast);
+    }
+
+    @Override
+    public void cancelDialog() {
+        handler.sendEmptyMessage(msgCancelDialog);
+    }
+
+    @Override
+    public void cancelDialogWithToast(String string) {
+        toastString = string;
+        handler.sendEmptyMessage(msgCancelDialogWithToast);
     }
 
     @Override

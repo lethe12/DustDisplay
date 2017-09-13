@@ -10,4 +10,6 @@ public interface ShowOperateInfo {
     void show(SettingFormat format);
     void showParaK(float para);
     void showToast(String string);
+    void cancelDialog();
+    void cancelDialogWithToast(String string);
 }

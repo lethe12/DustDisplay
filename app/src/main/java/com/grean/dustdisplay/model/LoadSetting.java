@@ -1,5 +1,7 @@
 package com.grean.dustdisplay.model;
 
+import android.util.Log;
+
 import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
 import com.grean.dustdisplay.presenter.ShowOperateInfo;
 import com.grean.dustdisplay.protocol.DustMeterCalCtrl;
@@ -14,9 +16,11 @@ import com.tools;
  */
 
 public class LoadSetting implements DustMeterCalCtrl{
+    private static final String tag = "LoadSetting";
     private  ShowOperateInfo info;
     private SettingFormat format;
     private boolean dustMeterCalRun = false;
+    private DustMeterCalThread thread;
 
     public LoadSetting(ShowOperateInfo info){
         this.info = info;
@@ -73,9 +77,13 @@ public class LoadSetting implements DustMeterCalCtrl{
 
     @Override
     public void onResult(String info) {
-        this.info.showToast(info);
+        this.info.cancelDialogWithToast(info);
     }
 
+    public void startDustMeterCal(NotifyProcessDialogInfo dialogInfo){
+        thread = new DustMeterCalThread(dialogInfo);
+        thread.start();
+    }
 
     private class DustMeterCalThread extends Thread{
         private NotifyProcessDialogInfo dialogInfo;
@@ -99,6 +107,7 @@ public class LoadSetting implements DustMeterCalCtrl{
             }
 
             clientProtocol.sendDustMeterCalResult();
+            Log.d(tag,"end DustMeterCal");
         }
     }
 }
