@@ -1,5 +1,6 @@
 package com.grean.dustdisplay.protocol;
 
+import com.grean.dustdisplay.presenter.ShowOperateInfo;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
 
 /**
@@ -10,4 +11,5 @@ public interface GeneralClientProtocol {
     void handleReceiveData(String rec);
     void setShowRealTimeData(ShowRealTimeData showRealTimeData);
     void sendScanCommand();
+    void sendLoadSetting(ShowOperateInfo info);
 }

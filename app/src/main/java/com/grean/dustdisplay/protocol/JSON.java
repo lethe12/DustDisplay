@@ -15,6 +15,24 @@ public class JSON {
         return object.toString().getBytes();
     }
 
+    public static byte[] readSetting() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","downloadSetting");
+        return object.toString().getBytes();
+    }
+
+    public static SettingFormat getSetting(JSONObject jsonObject) throws JSONException {
+        SettingFormat format = new SettingFormat();
+        format.setAutoCalEnable(jsonObject.getBoolean("autoCalEnable"));
+        format.setAutoCalDate(jsonObject.getLong("autoCalTime"));
+        format.setAutoCalInterval(jsonObject.getLong("autoCalInterval"));
+        format.setServerIp(jsonObject.getString("serverIp"));
+        format.setServerPort(jsonObject.getInt("serverPort"));
+        format.setParaK((float) jsonObject.getDouble("dustParaK"));
+        return format;
+    }
+
+
     public static RealTimeDataFormat getRealTimeData(JSONObject jsonObject) throws JSONException {
         RealTimeDataFormat format = new RealTimeDataFormat();
         format.setState(jsonObject.getString("state"));
