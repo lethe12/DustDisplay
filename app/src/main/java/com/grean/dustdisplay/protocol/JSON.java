@@ -32,6 +32,78 @@ public class JSON {
         return format;
     }
 
+    public static float getOperateDustCal(JSONObject jsonObject) throws JSONException {
+
+        return (float) jsonObject.getDouble("ParaK");
+    }
+
+    public static byte[] operateDustCal(float target) throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustCal",true);
+        object.put("target",target);
+        return object.toString().getBytes();
+    }
+
+    public static byte[] operateDustMeterCal() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustMeterCal",true);
+        return object.toString().getBytes();
+    }
+
+    public static byte[] operateDustMeterCalResult() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustMeterCalResult",true);
+        return object.toString().getBytes();
+    }
+
+    public static byte[] operateDustMeterCalProcess() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustMeterCalProcess",true);
+        return object.toString().getBytes();
+    }
+
+    public static String getDustMeterCalResult(JSONObject jsonObject) throws JSONException {
+        boolean bg = jsonObject.getBoolean("DustMeterCalBg");
+        boolean span = jsonObject.getBoolean("DustMeterCalSpan");
+        String string;
+        if(bg){
+            string = "校零成功，";
+        }else{
+            string = "校零失败，";
+        }
+        if(span){
+            string += "校跨成功。";
+        }else{
+            string += "校跨失败。";
+        }
+        return string;
+    }
+
+    public static DustMeterCalProcessFormat getDustMeterCalProcess(JSONObject jsonObject) throws JSONException {
+        DustMeterCalProcessFormat format = new DustMeterCalProcessFormat();
+        String string = jsonObject.getString("DustMeterCalInfo");
+        int process = jsonObject.getInt("DustMeterCalProcessInt");
+        string += "..."+String.valueOf(process)+"%";
+        format.setProcess(process);
+        format.setString(string);
+        return format;
+    }
+
+    public static byte[] uploadSetting(SettingFormat format) throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","uploadSetting");
+        object.put("autoCalEnable",format.isAutoCalEnable());
+        object.put("autoCalTime",format.getAutoCalDate());
+        object.put("autoCalInterval",format.getAutoCalInterval());
+        object.put("serverIp",format.getServerIp());
+        object.put("serverPort",format.getServerPort());
+        return object.toString().getBytes();
+    }
+
 
     public static RealTimeDataFormat getRealTimeData(JSONObject jsonObject) throws JSONException {
         RealTimeDataFormat format = new RealTimeDataFormat();

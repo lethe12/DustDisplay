@@ -8,4 +8,6 @@ import com.grean.dustdisplay.protocol.SettingFormat;
 
 public interface ShowOperateInfo {
     void show(SettingFormat format);
+    void showParaK(float para);
+    void showToast(String string);
 }

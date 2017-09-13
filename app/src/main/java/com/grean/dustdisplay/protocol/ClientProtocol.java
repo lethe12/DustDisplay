@@ -1,6 +1,9 @@
 package com.grean.dustdisplay.protocol;
 
+import android.util.Log;
+
 import com.grean.dustdisplay.SocketTask;
+import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
 import com.grean.dustdisplay.presenter.ShowOperateInfo;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
 
@@ -16,6 +19,8 @@ public class ClientProtocol implements GeneralClientProtocol{
     private ShowRealTimeData show;
     private RealTimeDataFormat dataFormat;
     private ShowOperateInfo info;
+    private DustMeterCalCtrl ctrl;
+    private NotifyProcessDialogInfo dialogInfo;
 
     @Override
     public void handleReceiveData(String rec) {
@@ -31,6 +36,28 @@ public class ClientProtocol implements GeneralClientProtocol{
                 SettingFormat format = JSON.getSetting(jsonObject);
                 if(info!=null) {
                     info.show(format);
+                }
+            }else if(type.equals("operate")){
+                Log.d(tag,rec);
+                if(jsonObject.has("DustCal")){
+                    if(info!=null){
+                        info.showParaK(JSON.getOperateDustCal(jsonObject));
+                    }
+                }else if(jsonObject.has("DustMeterCalProcess")){
+                    DustMeterCalProcessFormat format = JSON.getDustMeterCalProcess(jsonObject);
+                    if(dialogInfo!=null){
+                        dialogInfo.showInfo(format.getString());
+                        }
+                    if(format.getProcess() == 100) {
+                        if (ctrl != null) {
+                            ctrl.onFinish();
+                        }
+                    }
+                }else if(jsonObject.has("DustMeterCalResult")){
+                    String string =  JSON.getDustMeterCalResult(jsonObject);
+                    if(ctrl!=null){
+                        ctrl.onResult(string);
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -58,6 +85,54 @@ public class ClientProtocol implements GeneralClientProtocol{
         this.info = info;
         try {
             SocketTask.getInstance().send(JSON.readSetting());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendCalDust(ShowOperateInfo info, float target) {
+        this.info = info;
+        try {
+            SocketTask.getInstance().send(JSON.operateDustCal(target));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendUploadSetting(SettingFormat format) {
+        try {
+            SocketTask.getInstance().send(JSON.uploadSetting(format));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendDustMeterCalStart(NotifyProcessDialogInfo dialogInfo) {
+        this.dialogInfo = dialogInfo;
+        try {
+            SocketTask.getInstance().send(JSON.operateDustMeterCal());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendDustMeterCalResult() {
+        try {
+            SocketTask.getInstance().send(JSON.operateDustMeterCalResult());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendDustMeterCalProcess(DustMeterCalCtrl ctrl) {
+        this.ctrl = ctrl;
+        try {
+            SocketTask.getInstance().send(JSON.operateDustMeterCalProcess());
         } catch (JSONException e) {
             e.printStackTrace();
         }
