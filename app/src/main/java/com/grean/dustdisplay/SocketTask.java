@@ -128,7 +128,8 @@ public class SocketTask {
                     if (socketClient.isConnected()){
                         while ((count = receive.read(readBuff))!=-1 && connected){
                             String content = new String(readBuff,0,count);
-                            Log.d(tag,"TCP Content:"+content);
+                            //Log.d(tag,"TCP Content:"+content);
+                            clientProtocol.handleReceiveData(content);
                         }
                         connected = false;
                         break;
