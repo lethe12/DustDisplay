@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ScrollablePanel.DateInfo;
+import com.ScrollablePanel.ElementInfo;
+import com.ScrollablePanel.HistoryDataPanelAdapter;
 import com.ScrollablePanel.OrderInfo;
 import com.ScrollablePanel.RoomInfo;
 import com.ScrollablePanel.ScrollablePanel;
@@ -26,21 +28,52 @@ import java.util.Random;
  */
 
 public class FragmentData extends Fragment{
-    public static final SimpleDateFormat DAY_UI_MONTH_DAY_FORMAT = new SimpleDateFormat("MM-dd");
-    public static final SimpleDateFormat WEEK_FORMAT = new SimpleDateFormat("EEE", Locale.US);
+    /*public static final SimpleDateFormat DAY_UI_MONTH_DAY_FORMAT = new SimpleDateFormat("MM-dd");
+    public static final SimpleDateFormat WEEK_FORMAT = new SimpleDateFormat("EEE", Locale.US);*/
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_data,container,false);
         final ScrollablePanel scrollablePanel = (ScrollablePanel) view.findViewById(R.id.scrollable_panel);
-        final ScrollablePanelAdapter scrollablePanelAdapter = new ScrollablePanelAdapter();
+        final HistoryDataPanelAdapter historyDataPanelAdapter = new HistoryDataPanelAdapter();
+        generateTestData(historyDataPanelAdapter);
+        scrollablePanel.setPanelAdapter(historyDataPanelAdapter);
+        /*final ScrollablePanelAdapter scrollablePanelAdapter = new ScrollablePanelAdapter();
         generateTestData(scrollablePanelAdapter);
-        scrollablePanel.setPanelAdapter(scrollablePanelAdapter);
-
+        scrollablePanel.setPanelAdapter(scrollablePanelAdapter);*/
         return view;
     }
 
-    private void generateTestData(ScrollablePanelAdapter scrollablePanelAdapter) {
+    private void generateTestData(HistoryDataPanelAdapter historyDataPanelAdapter){
+        List<String>date = new ArrayList<>();
+        for(int i=0;i<60;i++){
+            String dateString = String.valueOf(i+100);
+            date.add(dateString);
+        }
+        historyDataPanelAdapter.setDate(date);
+
+        List<ElementInfo> element = new ArrayList<>();
+        for(int i=0;i<7;i++){
+            ElementInfo info = new ElementInfo();
+            info.setName(String.valueOf(200+i));
+            info.setUnit("m/s");
+            element.add(info);
+        }
+        historyDataPanelAdapter.setElement(element);
+
+        List<List<String>> data = new ArrayList<>();
+        for(int i =0;i<60;i++){
+            List<String> item = new ArrayList<>();
+            for(int j=0;j<7;j++){
+                String string = String.valueOf(i)+" "+String.valueOf(j);
+                item.add(string);
+            }
+            data.add(item);
+        }
+        historyDataPanelAdapter.setData(data);
+    }
+
+    /*private void generateTestData(ScrollablePanelAdapter scrollablePanelAdapter) {
         List<RoomInfo> roomInfoList = new ArrayList<>();
         //插入行信息
         for (int i = 0; i < 6; i++) {
@@ -99,5 +132,5 @@ public class FragmentData extends Fragment{
             ordersList.add(orderInfoList);
         }
         scrollablePanelAdapter.setOrdersList(ordersList);
-    }
+    }*/
 }
