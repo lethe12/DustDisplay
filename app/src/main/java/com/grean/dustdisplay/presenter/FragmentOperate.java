@@ -196,7 +196,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 getActivity().startActivity(getActivity().getPackageManager().getLaunchIntentForPackage("com.mcu.iVMSHD"));
                 break;
             case R.id.btnOperateVideoSetting:
-                Uri uri = Uri.parse("http://192.168.168.250");
+                Uri uri = Uri.parse("http://192.168.1.64");
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 startActivity(intent);
                 break;
