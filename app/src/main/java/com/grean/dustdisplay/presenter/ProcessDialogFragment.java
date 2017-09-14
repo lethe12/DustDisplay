@@ -32,7 +32,7 @@ public class ProcessDialogFragment extends DialogFragment implements NotifyProce
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         getDialog().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_FULLSCREEN);
-        getDialog().setTitle("处理中");
+        getDialog().setTitle("操作中");
         View view = inflater.inflate(R.layout.fragment_process_dialog,container);
         tvInfo = view.findViewById(R.id.tvProcessDialog);
 

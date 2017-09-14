@@ -1,5 +1,6 @@
 package com.grean.dustdisplay.presenter;
 
+import com.grean.dustdisplay.protocol.DustMeterInfoFormat;
 import com.grean.dustdisplay.protocol.SettingFormat;
 
 /**
@@ -12,4 +13,5 @@ public interface ShowOperateInfo {
     void showToast(String string);
     void cancelDialog();
     void cancelDialogWithToast(String string);
+    void showDustMeterInfo(DustMeterInfoFormat format);
 }

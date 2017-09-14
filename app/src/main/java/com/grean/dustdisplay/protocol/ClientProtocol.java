@@ -58,6 +58,11 @@ public class ClientProtocol implements GeneralClientProtocol{
                     if(ctrl!=null){
                         ctrl.onResult(string);
                     }
+                }else if(jsonObject.has("DustMeterInfo")){
+                    DustMeterInfoFormat format = JSON.getDustMeterInfo(jsonObject);
+                    if(info!=null){
+                        info.showDustMeterInfo(format);
+                    }
                 }
             }
         } catch (JSONException e) {
@@ -133,6 +138,16 @@ public class ClientProtocol implements GeneralClientProtocol{
         this.ctrl = ctrl;
         try {
             SocketTask.getInstance().send(JSON.operateDustMeterCalProcess());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendDustMeterInfo(ShowOperateInfo info) {
+        this.info = info;
+        try {
+            SocketTask.getInstance().send(JSON.readDustMeterInfo());
         } catch (JSONException e) {
             e.printStackTrace();
         }

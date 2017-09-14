@@ -18,4 +18,5 @@ public interface GeneralClientProtocol {
     void sendDustMeterCalStart(NotifyProcessDialogInfo dialogInfo);
     void sendDustMeterCalResult();
     void sendDustMeterCalProcess(DustMeterCalCtrl ctrl);
+    void sendDustMeterInfo(ShowOperateInfo info);
 }

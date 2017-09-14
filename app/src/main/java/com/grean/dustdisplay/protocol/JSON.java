@@ -21,6 +21,20 @@ public class JSON {
         return object.toString().getBytes();
     }
 
+    public static byte[] readDustMeterInfo() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustMeterInfo",true);
+        return object.toString().getBytes();
+    }
+
+    public static DustMeterInfoFormat getDustMeterInfo(JSONObject jsonObject) throws JSONException {
+        DustMeterInfoFormat format = new DustMeterInfoFormat();
+        format.setPumpTime(jsonObject.getInt("DustMeterPumpTime"));
+        format.setLaserTime(jsonObject.getInt("DustMeterLaserTime"));
+        return format;
+    }
+
     public static SettingFormat getSetting(JSONObject jsonObject) throws JSONException {
         SettingFormat format = new SettingFormat();
         format.setAutoCalEnable(jsonObject.getBoolean("autoCalEnable"));

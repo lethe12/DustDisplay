@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.grean.dustdisplay.R;
 import com.grean.dustdisplay.model.LoadSetting;
 import com.grean.dustdisplay.model.OperateSystem;
+import com.grean.dustdisplay.protocol.DustMeterInfoFormat;
 import com.grean.dustdisplay.protocol.SettingFormat;
 import com.tools;
 
@@ -30,7 +32,7 @@ import java.util.Calendar;
  */
 
 public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected{
-    private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle;
+    private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo;
     private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl;
     private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting;
     private Switch swAutoCalEnable;
@@ -39,7 +41,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     private ProcessDialogFragment dialogFragment;
     private OperateSystem system;
 
-    private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString;
+    private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString,dustMeterInfoString;
     private boolean autoCalEnable;
 
     private int dustMeterClickTimes=0,systemClickTimes=0;
@@ -49,6 +51,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     private static final int msgShowToast = 3;
     private static final int msgCancelDialog = 4;
     private static final int msgCancelDialogWithToast = 5;
+    private static final int msgShowDustMeterInfo = 6;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -61,7 +64,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                     if(autoCalEnable){
                         swAutoCalEnable.setChecked(true);
                         tvAutoCalDate.setVisibility(View.VISIBLE);
-                        etAutoCalInterval.setVisibility(View.INVISIBLE);
+                        etAutoCalInterval.setVisibility(View.VISIBLE);
                     }else{
                         swAutoCalEnable.setChecked(false);
                         tvAutoCalDate.setVisibility(View.INVISIBLE);
@@ -69,6 +72,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                     }
                     tvAutoCalDate.setText(autoCalDateString);
                     etAutoCalInterval.setText(autoCalIntervalString);
+                    if(dialogFragment!=null){
+                        dialogFragment.dismiss();
+                    }
                     break;
                 case msgShowParaK:
                     tvDustMeterParaK.setText(paraKString);
@@ -82,6 +88,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 case msgCancelDialogWithToast:
                     dialogFragment.dismiss();
                     Toast.makeText(getActivity(),toastString,Toast.LENGTH_SHORT).show();
+                    break;
+                case msgShowDustMeterInfo:
+                    tvDustMeterInfo.setText(dustMeterInfoString);
                     break;
                 default:
 
@@ -98,6 +107,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         setting = new LoadSetting(this);
         setting.loadSetting();
         system = new OperateSystem();
+        dialogFragment = new ProcessDialogFragment();
+        dialogFragment.setCancelable(false);
+        dialogFragment.show(getFragmentManager(),"OperateInfo");
         return view;
     }
 
@@ -106,6 +118,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         tvDustMeterParaK = v.findViewById(R.id.tvOperateParaK);
         tvAutoCalDate = v.findViewById(R.id.tvOperateAutoCalDate);
         tvSystemTitle = v.findViewById(R.id.tvOperateSystemTitle);
+        tvDustMeterInfo = v.findViewById(R.id.tvOperateDustMeterInfo);
         etDustTarget = v.findViewById(R.id.etOperateDustTarget);
         etAutoCalInterval = v.findViewById(R.id.etOperateAutoCalInterval);
         etServerIp = v.findViewById(R.id.etOperateServerIp);
@@ -124,6 +137,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         tvDustMeterTitle.setOnClickListener(this);
         tvAutoCalDate.setOnClickListener(this);
         tvSystemTitle.setOnClickListener(this);
+        tvDustMeterInfo.setOnClickListener(this);
         btnDustCal.setOnClickListener(this);
         btnAutoSave.setOnClickListener(this);
         btnDustMeterCal.setOnClickListener(this);
@@ -140,7 +154,6 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
             case R.id.tvOperateDustMeterTitle:
                 dustMeterClickTimes++;
                 if(dustMeterClickTimes == 3){
-                    dustMeterClickTimes++;
                     layoutDustMeter.setVisibility(View.VISIBLE);
                 }else if(dustMeterClickTimes ==4){
                     dustMeterClickTimes = 0;
@@ -155,12 +168,14 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
             case R.id.tvOperateSystemTitle:
                 systemClickTimes++;
                 if(systemClickTimes == 3){
-                    systemClickTimes++;
                     layoutSystem.setVisibility(View.VISIBLE);
                 }else if(systemClickTimes == 4){
                     systemClickTimes = 0;
                     layoutSystem.setVisibility(View.GONE);
                 }
+                break;
+            case R.id.tvOperateDustMeterInfo:
+                setting.getDustMeterInfo(this);
                 break;
             case R.id.btnOperateSaveAutoCal:
                 setting.saveAutoCal(swAutoCalEnable.isChecked(),tvAutoCalDate.getText().toString(),etAutoCalInterval.getText().toString());
@@ -190,7 +205,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 if(autoCalEnable){
                     swAutoCalEnable.setChecked(true);
                     tvAutoCalDate.setVisibility(View.VISIBLE);
-                    etAutoCalInterval.setVisibility(View.INVISIBLE);
+                    etAutoCalInterval.setVisibility(View.VISIBLE);
                 }else{
                     swAutoCalEnable.setChecked(false);
                     tvAutoCalDate.setVisibility(View.INVISIBLE);
@@ -244,6 +259,12 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     public void cancelDialogWithToast(String string) {
         toastString = string;
         handler.sendEmptyMessage(msgCancelDialogWithToast);
+    }
+
+    @Override
+    public void showDustMeterInfo(DustMeterInfoFormat format) {
+        dustMeterInfoString = "仪器信息:气泵累计运行时间"+ String.valueOf(format.getPumpTime())+"小时,激光器累计运行时间"+String.valueOf(format.getLaserTime())+"小时.";
+        handler.sendEmptyMessage(msgShowDustMeterInfo);
     }
 
     @Override

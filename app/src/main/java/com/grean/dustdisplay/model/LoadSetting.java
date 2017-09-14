@@ -35,11 +35,16 @@ public class LoadSetting implements DustMeterCalCtrl{
 
     }
 
+    public void getDustMeterInfo(ShowOperateInfo info){
+        ProtocolLibs.getInstance().getClientProtocol().sendDustMeterInfo(info);
+    }
+
     public void saveAutoCal(boolean enable,String date,String interval){
         format.setAutoCalEnable(enable);
         format.setAutoCalDate(tools.string2timestamp(date));
-        format.setAutoCalInterval(tools.string2timestamp(interval));
+        format.setAutoCalInterval(Long.valueOf(interval)*3600000l);
         ProtocolLibs.getInstance().getClientProtocol().sendUploadSetting(format);
+
     }
 
     public void saveServer(String ip,String port){
