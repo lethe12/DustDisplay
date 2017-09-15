@@ -3,6 +3,8 @@ package com.grean.dustdisplay.protocol;
 import android.util.Log;
 
 import com.grean.dustdisplay.SocketTask;
+import com.grean.dustdisplay.model.InquireExportDataProcess;
+import com.grean.dustdisplay.presenter.NotifyDataInfo;
 import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
 import com.grean.dustdisplay.presenter.ShowOperateInfo;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
@@ -21,6 +23,8 @@ public class ClientProtocol implements GeneralClientProtocol{
     private ShowOperateInfo info;
     private DustMeterCalCtrl ctrl;
     private NotifyProcessDialogInfo dialogInfo;
+    private NotifyDataInfo dataInfo;
+    private InquireExportDataProcess exportDataProcess;
 
     @Override
     public void handleReceiveData(String rec) {
@@ -63,6 +67,22 @@ public class ClientProtocol implements GeneralClientProtocol{
                     if(info!=null){
                         info.showDustMeterInfo(format);
                     }
+                }else if(jsonObject.has("ExportDataProcess")){
+                    ExportDataInfo exportDataInfo = JSON.getExportDataProcess(jsonObject);
+                    if(dataInfo!=null){
+                        if(exportDataInfo.getProcess() == 100) {
+                            if(exportDataProcess!=null){
+                                exportDataProcess.end();
+                            }
+                            dataInfo.onExportDataResult(exportDataInfo);
+                        }
+                    }
+                }
+            }else if(type.equals("historyData")){
+                Log.d(tag,rec);
+                HistoryDataContent content = JSON.getHistoryData(jsonObject);
+                if(dataInfo!=null){
+                    dataInfo.updateHistoryData(content);
                 }
             }
         } catch (JSONException e) {
@@ -148,6 +168,37 @@ public class ClientProtocol implements GeneralClientProtocol{
         this.info = info;
         try {
             SocketTask.getInstance().send(JSON.readDustMeterInfo());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendExportData(NotifyDataInfo info,long start,long end) {
+        this.dataInfo = info;
+        try {
+            SocketTask.getInstance().send(JSON.exportData(start,end));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendExportDataInfo(NotifyDataInfo info,InquireExportDataProcess dataProcess) {
+        this.dataInfo = info;
+        this.exportDataProcess = dataProcess;
+        try {
+            SocketTask.getInstance().send(JSON.readExportDataProcess());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendHistoryData(NotifyDataInfo info, long date) {
+        this.dataInfo = info;
+        try {
+            SocketTask.getInstance().send(JSON.readHistoryData(date));
         } catch (JSONException e) {
             e.printStackTrace();
         }

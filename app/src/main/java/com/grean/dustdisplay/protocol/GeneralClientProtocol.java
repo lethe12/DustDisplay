@@ -1,5 +1,7 @@
 package com.grean.dustdisplay.protocol;
 
+import com.grean.dustdisplay.model.InquireExportDataProcess;
+import com.grean.dustdisplay.presenter.NotifyDataInfo;
 import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
 import com.grean.dustdisplay.presenter.ShowOperateInfo;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
@@ -19,4 +21,7 @@ public interface GeneralClientProtocol {
     void sendDustMeterCalResult();
     void sendDustMeterCalProcess(DustMeterCalCtrl ctrl);
     void sendDustMeterInfo(ShowOperateInfo info);
+    void sendExportData(NotifyDataInfo info,long start,long end);
+    void sendExportDataInfo(NotifyDataInfo info, InquireExportDataProcess exportDataProcess);
+    void sendHistoryData(NotifyDataInfo info,long date);
 }

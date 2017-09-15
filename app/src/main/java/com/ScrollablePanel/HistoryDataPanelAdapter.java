@@ -54,7 +54,7 @@ public class HistoryDataPanelAdapter extends PanelAdapter{
 
     @Override
     public int getColumnCount() {
-        return data.get(0).size();
+        return data.get(0).size()+1;
     }
 
     @Override

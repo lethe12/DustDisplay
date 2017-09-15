@@ -213,7 +213,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="http://192.168.168.134:8080/DustDisplay.apk" />
+                    android:text="http://117.149.30.221:12599/DustDisplay.apk" />
 
                 <Button
                     android:id="@+id/btnOperateUpdateSoftware"

@@ -116,7 +116,7 @@ public class SocketTask {
                 socketClient.setOOBInline(true);
                 connected = true;
                 int count;
-                byte[] readBuff = new byte[4096];
+                byte[] readBuff = new byte[40960];
                 if(notifyProcessDialogInfo!=null){
                     notifyProcessDialogInfo.showInfo("已链接");
                 }
