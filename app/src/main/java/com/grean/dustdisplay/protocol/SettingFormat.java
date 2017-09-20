@@ -8,8 +8,16 @@ public class SettingFormat {
     boolean autoCalEnable;
     long autoCalDate,autoCalInterval;
     int serverPort;
-    String serverIp;
+    String serverIp,mnCode;
     float paraK;
+
+    public String getMnCode() {
+        return mnCode;
+    }
+
+    public void setMnCode(String mnCode) {
+        this.mnCode = mnCode;
+    }
 
     public float getParaK() {
         return paraK;

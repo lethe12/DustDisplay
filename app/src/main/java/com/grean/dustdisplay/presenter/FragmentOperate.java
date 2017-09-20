@@ -33,7 +33,7 @@ import java.util.Calendar;
 
 public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected{
     private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo;
-    private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl;
+    private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode;
     private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting;
     private Switch swAutoCalEnable;
     private LoadSetting setting;
@@ -41,7 +41,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     private ProcessDialogFragment dialogFragment;
     private OperateSystem system;
 
-    private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString,dustMeterInfoString;
+    private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString,dustMeterInfoString,mnCodeString;
     private boolean autoCalEnable;
 
     private int dustMeterClickTimes=0,systemClickTimes=0;
@@ -61,6 +61,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                     etAutoCalInterval.setText(autoCalIntervalString);
                     etServerIp.setText(serverIpString);
                     etServerPort.setText(serverPortString);
+                    etMnCode.setText(mnCodeString);
                     if(autoCalEnable){
                         swAutoCalEnable.setChecked(true);
                         tvAutoCalDate.setVisibility(View.VISIBLE);
@@ -134,6 +135,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         swAutoCalEnable = v.findViewById(R.id.swOperateAutoCal);
         layoutDustMeter = v.findViewById(R.id.layoutOperateDustMeter);
         layoutSystem = v.findViewById(R.id.layoutOperateUpdateSoftware);
+        etMnCode = v.findViewById(R.id.etOperateMnCode);
         tvDustMeterTitle.setOnClickListener(this);
         tvAutoCalDate.setOnClickListener(this);
         tvSystemTitle.setOnClickListener(this);
@@ -184,7 +186,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 setting.calDust(Float.valueOf(etDustTarget.getText().toString()));
                 break;
             case R.id.btnOperateSaveServer:
-                setting.saveServer(etServerIp.getText().toString(),etServerPort.getText().toString());
+                setting.saveServer(etServerIp.getText().toString(),etServerPort.getText().toString(),etMnCode.getText().toString());
                 break;
             case R.id.btnOperateUpdateSoftware:
                 dialogFragment = new ProcessDialogFragment();
@@ -234,6 +236,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         autoCalIntervalString = String.valueOf(format.getAutoCalInterval() / 3600000l);
         this.serverIpString = format.getServerIp();
         serverPortString = String.valueOf(format.getServerPort());
+        mnCodeString = format.getMnCode();
         handler.sendEmptyMessage(msgShowSetting);
         setting.readSetting(format);
     }

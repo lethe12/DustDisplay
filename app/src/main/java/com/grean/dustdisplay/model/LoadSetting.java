@@ -47,9 +47,10 @@ public class LoadSetting implements DustMeterCalCtrl{
 
     }
 
-    public void saveServer(String ip,String port){
+    public void saveServer(String ip,String port,String mnCode){
         format.setServerIp(ip);
         format.setServerPort(Integer.valueOf(port));
+        format.setMnCode(mnCode);
         ProtocolLibs.getInstance().getClientProtocol().sendUploadSetting(format);
     }
 

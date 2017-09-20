@@ -77,6 +77,7 @@ public class JSON {
         format.setAutoCalInterval(jsonObject.getLong("autoCalInterval"));
         format.setServerIp(jsonObject.getString("serverIp"));
         format.setServerPort(jsonObject.getInt("serverPort"));
+        format.setMnCode(jsonObject.getString("mnCode"));
         format.setParaK((float) jsonObject.getDouble("dustParaK"));
         return format;
     }
@@ -173,6 +174,7 @@ public class JSON {
         object.put("autoCalInterval",format.getAutoCalInterval());
         object.put("serverIp",format.getServerIp());
         object.put("serverPort",format.getServerPort());
+        object.put("mnCode",format.getMnCode());
         return object.toString().getBytes();
     }
 
