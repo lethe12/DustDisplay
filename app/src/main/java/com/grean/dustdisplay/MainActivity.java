@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.grean.dustdisplay.model.LoadConfig;
 import com.grean.dustdisplay.presenter.FragmentData;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LoadConfig loadConfig;
     private String serverIp;
     private int serverPort;
+    private TextView tvTab1,tvTab2,tvTab3;
+    private ImageView ivTab1,ivTab2,ivTab3;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -61,6 +65,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         layoutData.setOnClickListener(this);
         layoutRealTime.setOnClickListener(this);
         layoutOperate.setOnClickListener(this);
+        tvTab1 = (TextView) findViewById(R.id.tvMenuRealTime);
+        tvTab2 = (TextView) findViewById(R.id.tvMenuSetting);
+        tvTab3 = (TextView) findViewById(R.id.tvMenuData);
+        ivTab1 = (ImageView) findViewById(R.id.ivMenuRealTime);
+        ivTab2 = (ImageView) findViewById(R.id.ivMenuSetting);
+        ivTab3 = (ImageView) findViewById(R.id.ivMenuData);
     }
 
     @Override
@@ -78,9 +88,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 清除选中状态
      */
     private void clearSelection(){
-        layoutData.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
+        /*layoutData.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
         layoutOperate.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
-        layoutRealTime.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));
+        layoutRealTime.setBackgroundColor(Resources.getSystem().getColor(android.R.color.holo_blue_bright));*/
+        tvTab1.setTextColor(Resources.getSystem().getColor(android.R.color.darker_gray));
+        tvTab2.setTextColor(Resources.getSystem().getColor(android.R.color.darker_gray));
+        tvTab3.setTextColor(Resources.getSystem().getColor(android.R.color.darker_gray));
+        ivTab1.setImageDrawable(getResources().getDrawable(R.drawable.real_time_unselected));
+        ivTab2.setImageDrawable(getResources().getDrawable(R.drawable.setting_unselected));
+        ivTab3.setImageDrawable(getResources().getDrawable(R.drawable.data_unselected));
+    }
+
+    private void selectOne(int index){
+        switch (index){
+            case 0:
+                tvTab1.setTextColor(Resources.getSystem().getColor(android.R.color.holo_blue_light));
+                ivTab1.setImageDrawable(getResources().getDrawable(R.drawable.real_time_selected));
+                break;
+            case 1:
+                tvTab2.setTextColor(Resources.getSystem().getColor(android.R.color.holo_blue_light));
+                ivTab2.setImageDrawable(getResources().getDrawable(R.drawable.setting_selected));
+                break;
+            case 2:
+                tvTab3.setTextColor(Resources.getSystem().getColor(android.R.color.holo_blue_light));
+                ivTab3.setImageDrawable(getResources().getDrawable(R.drawable.data_selected));
+                break;
+            default:
+
+                break;
+        }
     }
 
     private void  hideFragment(FragmentTransaction transaction){
@@ -99,10 +135,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clearSelection();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         hideFragment(transaction);
+        selectOne(index);
         switch (index){
             case 0:
             default:
-                layoutRealTime.setBackgroundColor(Resources.getSystem().getColor(android.R.color.background_light));
                 if(fragmentRealTime == null){
                     fragmentRealTime = new FragmentRealTime();
                     transaction.add(R.id.content,fragmentRealTime).commit();

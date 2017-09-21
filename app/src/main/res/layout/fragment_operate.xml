@@ -309,7 +309,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:text="保存" />
+                        android:text="保存"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -351,7 +352,8 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="升级" />
+                        android:text="升级"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -394,7 +396,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
-                        android:text="视频预览" />
+                        android:text="视频预览"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -411,7 +414,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
-                        android:text="视频设置" />
+                        android:text="视频设置"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </LinearLayout>

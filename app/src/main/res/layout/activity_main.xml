@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/background_light"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -33,48 +33,76 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/textView"
+                <ImageView
+                    android:id="@+id/ivMenuRealTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvMenuRealTime"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/real_time_unselected" />
+
+                <TextView
+                    android:id="@+id/tvMenuRealTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"
                     android:text="实时"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layoutSetting"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright">
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/textView2"
+                <ImageView
+                    android:id="@+id/ivMenuSetting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvMenuSetting"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/setting_unselected" />
+
+                <TextView
+                    android:id="@+id/tvMenuSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"
                     android:text="操作"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layoutData"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright">
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/textView3"
+                <ImageView
+                    android:id="@+id/ivMenuData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_above="@+id/tvMenuData"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/data_unselected" />
+
+                <TextView
+                    android:id="@+id/tvMenuData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"
                     android:text="数据"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
             </RelativeLayout>
 
         </LinearLayout>
