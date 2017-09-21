@@ -3,28 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="1dp"
         android:layout_weight="6"
+        android:background="@android:color/background_light"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
             app:srcCompat="@drawable/logo" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <TextClock
             android:id="@+id/textClock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_weight="1"
-            android:format24Hour="yyyy-MM-dd HH:mm" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="50dp"
+            android:format24Hour="yyyy-MM-dd HH:mm"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <TableLayout
@@ -35,12 +43,17 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -48,7 +61,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="TSP" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="TSP"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimeDust"
@@ -56,7 +72,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="70sp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -64,13 +81,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="mg/m³" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="mg/m³"
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView9"
@@ -78,7 +101,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="温度" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="温度"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimeTemperature"
@@ -86,7 +112,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -94,13 +121,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="℃" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="15dp"
+                    android:text="℃"
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView12"
@@ -108,7 +141,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="湿度" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="湿度"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimeHumidity"
@@ -116,7 +152,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView14"
@@ -124,13 +161,18 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="°" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="%"
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView18"
@@ -138,7 +180,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="气压" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="气压"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimePressure"
@@ -146,7 +191,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView20"
@@ -154,19 +200,27 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="hPa" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="hPa"
+                    android:textSize="24sp" />
             </RelativeLayout>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -174,7 +228,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="风速" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="风速"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimeWindForce"
@@ -182,7 +239,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -190,13 +248,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="m/s" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="m/s"
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -204,7 +268,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="风向" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="风向"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimeWindDirection"
@@ -212,7 +279,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -220,13 +288,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="°" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="°"
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -234,7 +308,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="噪声" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="噪声"
+                    android:textSize="36sp" />
 
                 <TextView
                     android:id="@+id/tvRealTimeNoise"
@@ -242,7 +319,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="10.0" />
+                    android:text="Nan"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -250,13 +328,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="dB" />
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="15dp"
+                    android:text="dB"
+                    android:textSize="24sp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:visibility="invisible">
 
                 <TextView
                     android:id="@+id/textView7"
@@ -264,7 +348,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:text="-" />
+                    android:text="-"
+                    android:textSize="30sp" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -272,7 +357,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="-" />
+                    android:text="-"
+                    android:textSize="60sp" />
 
                 <TextView
                     android:id="@+id/textView13"
@@ -280,7 +366,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
-                    android:text="-" />
+                    android:text="-"
+                    android:textSize="24sp" />
             </RelativeLayout>
         </TableRow>
 
@@ -289,6 +376,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="1dp"
         android:layout_weight="6"
         android:orientation="horizontal">
 
@@ -298,6 +387,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="正在测量" />
+            android:background="@android:color/background_light"
+            android:text="正在测量"
+            android:textSize="24sp" />
     </LinearLayout>
 </LinearLayout>

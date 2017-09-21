@@ -280,6 +280,16 @@ import android.annotation.SuppressLint;
 		DecimalFormat fnum = new DecimalFormat("##0.0000"); //保留小数点后3位
 		return fnum.format(data); 
 	}
+
+	public static String float2String2(float data){
+		DecimalFormat fnum = new DecimalFormat("##0.00"); //保留小数点后3位
+		return fnum.format(data);
+	}
+
+	public static String float2String1(float data){
+		DecimalFormat fnum = new DecimalFormat("##0.0"); //保留小数点后3位
+		return fnum.format(data);
+	}
 	/**
 	 * float转字符串，无小数部分
 	 * @param data

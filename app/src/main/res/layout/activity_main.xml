@@ -24,14 +24,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.2"
+            android:background="@android:color/darker_gray"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/layoutRealTime"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/holo_blue_bright">
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/textView"

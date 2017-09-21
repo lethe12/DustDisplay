@@ -66,10 +66,12 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                         swAutoCalEnable.setChecked(true);
                         tvAutoCalDate.setVisibility(View.VISIBLE);
                         etAutoCalInterval.setVisibility(View.VISIBLE);
+                        btnAutoSave.setVisibility(View.VISIBLE);
                     }else{
                         swAutoCalEnable.setChecked(false);
                         tvAutoCalDate.setVisibility(View.INVISIBLE);
                         etAutoCalInterval.setVisibility(View.INVISIBLE);
+                        btnAutoSave.setVisibility(View.INVISIBLE);
                     }
                     tvAutoCalDate.setText(autoCalDateString);
                     etAutoCalInterval.setText(autoCalIntervalString);
@@ -208,10 +210,12 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                     swAutoCalEnable.setChecked(true);
                     tvAutoCalDate.setVisibility(View.VISIBLE);
                     etAutoCalInterval.setVisibility(View.VISIBLE);
+                    btnAutoSave.setVisibility(View.VISIBLE);
                 }else{
                     swAutoCalEnable.setChecked(false);
                     tvAutoCalDate.setVisibility(View.INVISIBLE);
                     etAutoCalInterval.setVisibility(View.INVISIBLE);
+                    btnAutoSave.setVisibility(View.INVISIBLE);
                 }
                 setting.saveAutoCal(autoCalEnable,tvAutoCalDate.getText().toString(),etAutoCalInterval.getText().toString());
                 break;

@@ -5,138 +5,203 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tvOperateDustMeterTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="粉尘仪" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/background_light"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvOperateDustMeterTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="当前斜率:" />
+                    android:text="粉尘仪"
+                    android:textSize="36sp" />
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvOperateParaK"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="0.33" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="校准值" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/etOperateDustTarget"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="numberDecimal"
-                    android:text="10" />
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前斜率:"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="mg/m³" />
+                    <TextView
+                        android:id="@+id/tvOperateParaK"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="0.333"
+                        android:textSize="24sp" />
 
-                <Button
-                    android:id="@+id/btnOperateDustCal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="校准" />
+                    <TextView
+                        android:id="@+id/textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="校准值"
+                        android:textSize="24sp" />
+
+                    <EditText
+                        android:id="@+id/etOperateDustTarget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:autoSizeMaxTextSize="5dp"
+                        android:ems="5"
+                        android:inputType="numberDecimal"
+                        android:maxEms="5"
+                        android:text="10"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="mg/m³"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateDustCal"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="校准"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/background_light"
                 android:orientation="horizontal">
 
-                <Switch
-                    android:id="@+id/swOperateAutoCal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="自动校准" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="下次自动校准时间:" />
+                    <Switch
+                        android:id="@+id/swOperateAutoCal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自动校准"
+                        android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tvOperateAutoCalDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="2017-09-11 00:00" />
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="时间:"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="自动校准间隔:" />
+                    <TextView
+                        android:id="@+id/tvOperateAutoCalDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="2017-09-11 00:00"
+                        android:textSize="24sp" />
 
-                <EditText
-                    android:id="@+id/etOperateAutoCalInterval"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:text="24" />
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="间隔:"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="H" />
+                    <EditText
+                        android:id="@+id/etOperateAutoCalInterval"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoSizeMaxTextSize="4dp"
+                        android:ems="4"
+                        android:inputType="number"
+                        android:maxEms="4"
+                        android:text="24"
+                        android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/btnOperateSaveAutoCal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="保存" />
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="H"
+                        android:textSize="24sp" />
 
-                <Button
-                    android:id="@+id/btnOperateCalMan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="手动校准" />
+                    <Button
+                        android:id="@+id/btnOperateSaveAutoCal"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:text="保存"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateCalMan"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="手动校准"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutOperateDustMeter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/background_light"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -144,126 +209,213 @@
                     android:id="@+id/tvOperateDustMeterInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="仪器信息:气泵累计运行时间-小时，激光器累计运行时间-H。" />
+                    android:text="仪器信息:气泵累计运行时间-小时，激光器累计运行时间-H。"
+                    android:textSize="24sp" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvOperateSystemTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="系统" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/background_light"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView26"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvOperateSystemTitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="服务器IP:" />
+                    android:text="系统"
+                    android:textSize="36sp" />
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/etOperateServerIp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="192.168.168.134" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView27"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="端口:" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/etOperateServerPort"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:text="12803" />
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="服务器IP:"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="地区码:" />
+                    <EditText
+                        android:id="@+id/etOperateServerIp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="192.168.168.134" />
 
-                <EditText
-                    android:id="@+id/etOperateMnCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="888888" />
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="端口:"
+                        android:textSize="24sp" />
 
-                <Button
-                    android:id="@+id/btnOperateSaveServer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="保存" />
+                    <EditText
+                        android:id="@+id/etOperateServerPort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:ems="5"
+                        android:inputType="number"
+                        android:text="12803" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="地区码:"
+                        android:textSize="24sp" />
+
+                    <EditText
+                        android:id="@+id/etOperateMnCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:ems="8"
+                        android:inputType="textPersonName"
+                        android:text="888888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateSaveServer"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="保存" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutOperateUpdateSoftware"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/background_light"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/etOperateUpdateSoftwareUrl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="http://117.149.30.221:12599/DustDisplay.apk" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnOperateUpdateSoftware"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="升级" />
+                    <EditText
+                        android:id="@+id/etOperateUpdateSoftwareUrl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="25"
+                        android:inputType="textPersonName"
+                        android:text="http://117.149.30.221:12599/DustDisplay.apk" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateUpdateSoftware"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="升级" />
+                </LinearLayout>
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="视频" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/background_light"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnOperateVideoPreview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="视频预览" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="2.3"
+                    android:background="@android:color/background_light"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnOperateVideoSetting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="视频设置" />
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="视频"
+                        android:textSize="36sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateVideoPreview"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="视频预览" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateVideoSetting"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="视频设置" />
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

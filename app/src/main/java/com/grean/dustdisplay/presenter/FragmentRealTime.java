@@ -80,13 +80,13 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
 
     @Override
     public void show(RealTimeDataFormat format) {
-        dustString = tools.float2String3(format.getDust());
-        temperatureString = tools.float2String3(format.getTemperature());
-        humidityString = tools.float2String3(format.getHumidity());
+        dustString = tools.float2String2(format.getDust());
+        temperatureString = tools.float2String1(format.getTemperature());
+        humidityString = tools.float2String1(format.getHumidity());
         pressureString = tools.float2String0(format.getPressure());
-        windForceString = tools.float2String3(format.getWindForce());
+        windForceString = tools.float2String1(format.getWindForce());
         windDirectionString = tools.float2String0(format.getWindDirection());
-        noiseString = tools.float2String3(format.getNoise());
+        noiseString = tools.float2String1(format.getNoise());
         stateString = format.getState();
         handler.sendEmptyMessage(msgShowRealTImeData);
     }
