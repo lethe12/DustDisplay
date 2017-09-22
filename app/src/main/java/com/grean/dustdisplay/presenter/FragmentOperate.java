@@ -32,7 +32,7 @@ import java.util.Calendar;
  */
 
 public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected{
-    private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo;
+    private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo,tvSoftwareVersion;
     private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode;
     private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting;
     private Switch swAutoCalEnable;
@@ -113,6 +113,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         dialogFragment = new ProcessDialogFragment();
         dialogFragment.setCancelable(false);
         dialogFragment.show(getFragmentManager(),"OperateInfo");
+        tvSoftwareVersion.setText("当前软件版本:"+getString(R.string.app_versions)+" ");
         return view;
     }
 
@@ -138,6 +139,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         layoutDustMeter = v.findViewById(R.id.layoutOperateDustMeter);
         layoutSystem = v.findViewById(R.id.layoutOperateUpdateSoftware);
         etMnCode = v.findViewById(R.id.etOperateMnCode);
+        tvSoftwareVersion = v.findViewById(R.id.tvOperateSoftwareVerison);
         tvDustMeterTitle.setOnClickListener(this);
         tvAutoCalDate.setOnClickListener(this);
         tvSystemTitle.setOnClickListener(this);
