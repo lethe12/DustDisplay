@@ -122,7 +122,7 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
 
     @Override
     public void show(RealTimeDataFormat format) {
-        dustString = tools.float2String2(format.getDust());
+        dustString = tools.float2String3(format.getDust());
         temperatureString = tools.float2String1(format.getTemperature());
         humidityString = tools.float2String1(format.getHumidity());
         pressureString = tools.float2String0(format.getPressure());
