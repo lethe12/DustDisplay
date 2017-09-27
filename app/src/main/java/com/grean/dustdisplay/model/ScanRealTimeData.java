@@ -5,6 +5,7 @@ import android.util.Log;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
 import com.grean.dustdisplay.protocol.GeneralClientProtocol;
 import com.grean.dustdisplay.protocol.ProtocolLibs;
+import com.tools;
 
 /**
  * Created by weifeng on 2017/9/13.
@@ -13,7 +14,7 @@ import com.grean.dustdisplay.protocol.ProtocolLibs;
 public class ScanRealTimeData {
     private static final String tag = "ScanRealTimeData";
     private ShowRealTimeData show;
-    private boolean run = false;
+    private boolean run = false,initRun = false;
     private ScanDataThread thread;
     private GeneralClientProtocol clientProtocol;
 
@@ -35,9 +36,48 @@ public class ScanRealTimeData {
         }
     }
 
+    /**
+     * 跳过初始化
+     */
+    public void stopInit(){
+        initRun = false;
+    }
+
     private class ScanDataThread extends Thread{
         @Override
         public void run() {
+            //初始化
+            long now = tools.nowtime2timestamp();
+            long end = now + 300000l;
+            initRun = true;
+            int i=0,restTime=300,j=0;
+            show.showInitProcess(restTime);
+            while ((now < end)&&initRun){
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                j++;
+                if(j>=5){
+                    j=0;
+                    restTime--;
+                    if(restTime <= 0){
+                        restTime = 0;
+                    }
+                    show.showInitProcess(restTime);
+                }
+
+                i++;
+                if(i>=10){
+                    i=0;
+                    clientProtocol.sendScanCommand();
+                }
+                now = tools.nowtime2timestamp();
+            }
+            Log.d(tag,"stop init");
+            show.showFinishInit();
+            //开始查询
             run = true;
             while (run&&!interrupted()){
                 clientProtocol.sendScanCommand();

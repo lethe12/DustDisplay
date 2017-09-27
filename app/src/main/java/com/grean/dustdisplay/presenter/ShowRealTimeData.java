@@ -8,4 +8,7 @@ import com.grean.dustdisplay.protocol.RealTimeDataFormat;
 
 public interface ShowRealTimeData {
     void show(RealTimeDataFormat format);
+    void showAlarm(boolean isAlarm);
+    void showInitProcess(int restTime);
+    void showFinishInit();
 }

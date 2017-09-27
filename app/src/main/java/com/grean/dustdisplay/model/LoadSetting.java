@@ -47,10 +47,16 @@ public class LoadSetting implements DustMeterCalCtrl{
 
     }
 
-    public void saveServer(String ip,String port,String mnCode){
+    public void saveServer(String ip,String port,String mnCode,int protocolName){
         format.setServerIp(ip);
         format.setServerPort(Integer.valueOf(port));
         format.setMnCode(mnCode);
+        format.setProtocolName(protocolName);
+        ProtocolLibs.getInstance().getClientProtocol().sendUploadSetting(format);
+    }
+
+    public void saveAlarmDust(String string){
+        format.setAlarmDust(Float.valueOf(string));
         ProtocolLibs.getInstance().getClientProtocol().sendUploadSetting(format);
     }
 
@@ -61,6 +67,9 @@ public class LoadSetting implements DustMeterCalCtrl{
         this.format.setAutoCalInterval(format.getAutoCalInterval());
         this.format.setServerIp(format.getServerIp());
         this.format.setServerPort(format.getServerPort());
+        this.format.setAlarmDust(format.getAlarmDust());
+        this.format.setProtocolName(format.getProtocolName());
+        this.format.setMnCode(format.getMnCode());
     }
 
     public String calcNextDate(String string,String intervalString){

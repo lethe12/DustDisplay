@@ -32,17 +32,20 @@ public class ClientProtocol implements GeneralClientProtocol{
             JSONObject jsonObject = new JSONObject(rec);
             String type = JSON.getProtocolType(jsonObject);
             if(type.equals("realTimeData")){
+                //Log.d(tag,rec);
                 dataFormat = JSON.getRealTimeData(jsonObject);
                 if(show!=null) {
                     show.show(dataFormat);
+                    show.showAlarm(dataFormat.isAlarm());
                 }
             }else if(type.equals("downloadSetting")){
+                //Log.d(tag,rec);
                 SettingFormat format = JSON.getSetting(jsonObject);
                 if(info!=null) {
                     info.show(format);
                 }
             }else if(type.equals("operate")){
-                Log.d(tag,rec);
+                //Log.d(tag,rec);
                 if(jsonObject.has("DustCal")){
                     if(info!=null){
                         info.showParaK(JSON.getOperateDustCal(jsonObject));

@@ -27,6 +27,7 @@
                     android:layout_weight="1"
                     android:text="粉尘仪"
                     android:textSize="36sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -84,6 +85,15 @@
                         android:text="mg/m³"
                         android:textSize="24sp" />
 
+                    <Button
+                        android:id="@+id/btnOperateDustCal"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="175dp"
+                        android:text="斜率校准"
+                        android:textSize="18sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,12 +104,10 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btnOperateDustCal"
+                        android:id="@+id/btnOperateCalZero"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="校准"
+                        android:text="手动校零"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -190,8 +198,7 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="手动校准"
+                        android:text="手动校跨"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -230,6 +237,104 @@
                     android:layout_weight="1"
                     android:text="系统"
                     android:textSize="36sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="扬尘报警上限："
+                        android:textSize="24sp" />
+
+                    <EditText
+                        android:id="@+id/etOperateAlarm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:ems="5"
+                        android:inputType="numberDecimal"
+                        android:text="100"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="mg/m³"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnOperateSaveAlarm"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="clip_vertical"
+                        android:text="保存"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="地区码:"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/etOperateMnCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="45dp"
+                    android:ems="8"
+                    android:inputType="textPersonName"
+                    android:text="888888" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:text="协议:"
+                    android:textSize="24sp" />
+
+                <Spinner
+                    android:id="@+id/spOperateProticol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:spinnerMode="dialog" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -278,22 +383,6 @@
                         android:inputType="number"
                         android:text="12803" />
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="地区码:"
-                        android:textSize="24sp" />
-
-                    <EditText
-                        android:id="@+id/etOperateMnCode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:ems="8"
-                        android:inputType="textPersonName"
-                        android:text="888888" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -308,7 +397,6 @@
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
                         android:text="保存"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -359,7 +447,6 @@
                         android:id="@+id/btnOperateUpdateSoftware"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="升级"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -403,7 +490,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
                         android:text="视频预览"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -421,7 +507,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="20dp"
-                        android:layout_weight="1"
                         android:text="视频设置"
                         android:textSize="18sp" />
                 </LinearLayout>

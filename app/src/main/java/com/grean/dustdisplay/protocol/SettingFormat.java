@@ -5,11 +5,36 @@ package com.grean.dustdisplay.protocol;
  */
 
 public class SettingFormat {
-    boolean autoCalEnable;
-    long autoCalDate,autoCalInterval;
-    int serverPort;
-    String serverIp,mnCode;
-    float paraK;
+    private boolean autoCalEnable;
+    private long autoCalDate,autoCalInterval;
+    private int serverPort,protocolName;
+    private String serverIp,mnCode;
+    private float paraK,alarmDust;
+    private String[] protocolNames;
+
+    public int getProtocolName() {
+        return protocolName;
+    }
+
+    public void setProtocolName(int protocolName) {
+        this.protocolName = protocolName;
+    }
+
+    public float getAlarmDust() {
+        return alarmDust;
+    }
+
+    public void setAlarmDust(float alarmDust) {
+        this.alarmDust = alarmDust;
+    }
+
+    public String[] getProtocolNames() {
+        return protocolNames;
+    }
+
+    public void setProtocolNames(String[] protocolNames) {
+        this.protocolNames = protocolNames;
+    }
 
     public String getMnCode() {
         return mnCode;

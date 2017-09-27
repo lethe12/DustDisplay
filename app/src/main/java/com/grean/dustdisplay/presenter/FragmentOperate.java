@@ -12,8 +12,11 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,18 +34,21 @@ import java.util.Calendar;
  * Created by weifeng on 2017/9/12.
  */
 
-public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected{
+public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected,AdapterView.OnItemSelectedListener{
     private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo,tvSoftwareVersion;
-    private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode;
-    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting;
+    private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode,etAlarm;
+    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,btnSaveAlarm;
+    private Spinner spProtocol;
     private Switch swAutoCalEnable;
     private LoadSetting setting;
     private View layoutDustMeter,layoutSystem;
     private ProcessDialogFragment dialogFragment;
     private OperateSystem system;
+    private int protocolName;
 
-    private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString,dustMeterInfoString,mnCodeString;
+    private String paraKString,autoCalDateString,autoCalIntervalString,serverIpString,serverPortString,toastString,dustMeterInfoString,mnCodeString,alarmDustString;
     private boolean autoCalEnable;
+    private String[] names;
 
     private int dustMeterClickTimes=0,systemClickTimes=0;
 
@@ -78,6 +84,11 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                     if(dialogFragment!=null){
                         dialogFragment.dismiss();
                     }
+                    etAlarm.setText(alarmDustString);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),R.layout.my_spnner,names);
+                    spProtocol.setOnItemSelectedListener(FragmentOperate.this);
+                    spProtocol.setAdapter(adapter);
+                    spProtocol.setSelection(protocolName);
                     break;
                 case msgShowParaK:
                     tvDustMeterParaK.setText(paraKString);
@@ -140,6 +151,10 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         layoutSystem = v.findViewById(R.id.layoutOperateUpdateSoftware);
         etMnCode = v.findViewById(R.id.etOperateMnCode);
         tvSoftwareVersion = v.findViewById(R.id.tvOperateSoftwareVerison);
+        etAlarm = v.findViewById(R.id.etOperateAlarm);
+        btnSaveAlarm = v.findViewById(R.id.btnOperateSaveAlarm);
+        btnSaveAlarm.setOnClickListener(this);
+        spProtocol = v.findViewById(R.id.spOperateProticol);
         tvDustMeterTitle.setOnClickListener(this);
         tvAutoCalDate.setOnClickListener(this);
         tvSystemTitle.setOnClickListener(this);
@@ -190,7 +205,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 setting.calDust(Float.valueOf(etDustTarget.getText().toString()));
                 break;
             case R.id.btnOperateSaveServer:
-                setting.saveServer(etServerIp.getText().toString(),etServerPort.getText().toString(),etMnCode.getText().toString());
+                setting.saveServer(etServerIp.getText().toString(),etServerPort.getText().toString(),etMnCode.getText().toString(),protocolName);
                 break;
             case R.id.btnOperateUpdateSoftware:
                 dialogFragment = new ProcessDialogFragment();
@@ -227,6 +242,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 dialogFragment.show(getFragmentManager(),"Calibration");
                 setting.startDustMeterCal(dialogFragment);
                 break;
+            case R.id.btnOperateSaveAlarm:
+                setting.saveAlarmDust(etAlarm.getText().toString());
+                break;
             default:
 
                 break;
@@ -243,6 +261,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         this.serverIpString = format.getServerIp();
         serverPortString = String.valueOf(format.getServerPort());
         mnCodeString = format.getMnCode();
+        alarmDustString=tools.float2String2(format.getAlarmDust());
+        names = format.getProtocolNames();
+        protocolName = format.getProtocolName();
         handler.sendEmptyMessage(msgShowSetting);
         setting.readSetting(format);
     }
@@ -279,5 +300,22 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
     @Override
     public void onComplete(String string) {
         tvAutoCalDate.setText(setting.calcNextDate(string,etAutoCalInterval.getText().toString()));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (adapterView.getId()){
+            case R.id.spOperateProticol:
+                protocolName = i;
+                break;
+            default:
+
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

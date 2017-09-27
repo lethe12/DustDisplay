@@ -79,6 +79,17 @@ public class JSON {
         format.setServerPort(jsonObject.getInt("serverPort"));
         format.setMnCode(jsonObject.getString("mnCode"));
         format.setParaK((float) jsonObject.getDouble("dustParaK"));
+        format.setAlarmDust((float) jsonObject.getDouble("alarmDust"));
+        format.setProtocolName(jsonObject.getInt("clientProtocolName"));
+        JSONArray array = jsonObject.getJSONArray("clientProtocolNames");
+        int size = array.length();
+        if(size!=0) {
+            String[] names = new String[size];
+            for (int i = 0; i < size; i++) {
+                names[i] = array.getString(i);
+            }
+            format.setProtocolNames(names);
+        }
         return format;
     }
 
@@ -175,6 +186,8 @@ public class JSON {
         object.put("serverIp",format.getServerIp());
         object.put("serverPort",format.getServerPort());
         object.put("mnCode",format.getMnCode());
+        object.put("alarmDust",format.getAlarmDust());
+        object.put("clientProtocolName",format.getProtocolName());
         return object.toString().getBytes();
     }
 
@@ -183,6 +196,9 @@ public class JSON {
         RealTimeDataFormat format = new RealTimeDataFormat();
         format.setState(jsonObject.getString("state"));
         JSONArray array = jsonObject.getJSONArray("realTimeData");
+        if(jsonObject.has("alarm")) {
+            format.setAlarm(jsonObject.getBoolean("alarm"));
+        }
         for(int i=0; i <array.length();i++){
             JSONObject item = array.getJSONObject(i);
             if(item.getString("name").equals("dust")){
