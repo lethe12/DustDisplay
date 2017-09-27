@@ -136,6 +136,13 @@ public class JSON {
         return object.toString().getBytes();
     }
 
+    public static byte[] operateDustMeterCalZero() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustMeterCalZero",true);
+        return object.toString().getBytes();
+    }
+
     public static byte[] operateDustMeterCalResult() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");

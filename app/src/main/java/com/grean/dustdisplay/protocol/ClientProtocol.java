@@ -148,6 +148,16 @@ public class ClientProtocol implements GeneralClientProtocol{
     }
 
     @Override
+    public void sendDustMeterCalZeroStart(NotifyProcessDialogInfo dialogInfo) {
+        this.dialogInfo = dialogInfo;
+        try {
+            SocketTask.getInstance().send(JSON.operateDustMeterCalZero());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void sendDustMeterCalResult() {
         try {
             SocketTask.getInstance().send(JSON.operateDustMeterCalResult());

@@ -96,21 +96,32 @@ public class LoadSetting implements DustMeterCalCtrl{
     }
 
     public void startDustMeterCal(NotifyProcessDialogInfo dialogInfo){
-        thread = new DustMeterCalThread(dialogInfo);
+        thread = new DustMeterCalThread(dialogInfo,false);
+        thread.start();
+    }
+
+    public void startDustMeterCalZero(NotifyProcessDialogInfo dialogInfo){
+        thread = new DustMeterCalThread(dialogInfo,true);
         thread.start();
     }
 
     private class DustMeterCalThread extends Thread{
         private NotifyProcessDialogInfo dialogInfo;
+        private boolean zeroCal;
 
-        public DustMeterCalThread(NotifyProcessDialogInfo dialogInfo){
+        public DustMeterCalThread(NotifyProcessDialogInfo dialogInfo,boolean zeroCal){
             this.dialogInfo = dialogInfo;
             dustMeterCalRun = true;
+            this.zeroCal = zeroCal;
         }
         @Override
         public void run() {
             GeneralClientProtocol clientProtocol = ProtocolLibs.getInstance().getClientProtocol();
-            clientProtocol.sendDustMeterCalStart(dialogInfo);
+            if(zeroCal){
+                clientProtocol.sendDustMeterCalZeroStart(dialogInfo);
+            }else {
+                clientProtocol.sendDustMeterCalStart(dialogInfo);
+            }
             dialogInfo.showInfo("开始校准...0%");
             while (dustMeterCalRun&&(!interrupted())) {
                 try {

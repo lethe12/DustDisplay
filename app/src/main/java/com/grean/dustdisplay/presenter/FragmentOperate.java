@@ -37,7 +37,7 @@ import java.util.Calendar;
 public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected,AdapterView.OnItemSelectedListener{
     private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo,tvSoftwareVersion;
     private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode,etAlarm;
-    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,btnSaveAlarm;
+    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,btnSaveAlarm,btnDustMeterCalZero;
     private Spinner spProtocol;
     private Switch swAutoCalEnable;
     private LoadSetting setting;
@@ -153,6 +153,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         tvSoftwareVersion = v.findViewById(R.id.tvOperateSoftwareVerison);
         etAlarm = v.findViewById(R.id.etOperateAlarm);
         btnSaveAlarm = v.findViewById(R.id.btnOperateSaveAlarm);
+        btnDustMeterCalZero = v.findViewById(R.id.btnOperateCalZero);
+        btnDustMeterCalZero.setOnClickListener(this);
         btnSaveAlarm.setOnClickListener(this);
         spProtocol = v.findViewById(R.id.spOperateProticol);
         tvDustMeterTitle.setOnClickListener(this);
@@ -244,6 +246,12 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 break;
             case R.id.btnOperateSaveAlarm:
                 setting.saveAlarmDust(etAlarm.getText().toString());
+                break;
+            case R.id.btnOperateCalZero:
+                dialogFragment = new ProcessDialogFragment();
+                dialogFragment.setCancelable(false);
+                dialogFragment.show(getFragmentManager(),"Calibration");
+                setting.startDustMeterCalZero(dialogFragment);
                 break;
             default:
 
