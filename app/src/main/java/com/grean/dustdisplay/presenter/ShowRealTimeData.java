@@ -11,4 +11,6 @@ public interface ShowRealTimeData {
     void showAlarm(boolean isAlarm);
     void showInitProcess(int restTime);
     void showFinishInit();
+    void showServer(boolean connected);
+    void showLocal(boolean connected);
 }

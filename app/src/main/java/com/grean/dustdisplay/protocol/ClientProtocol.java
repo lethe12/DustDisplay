@@ -37,6 +37,7 @@ public class ClientProtocol implements GeneralClientProtocol{
                 if(show!=null) {
                     show.show(dataFormat);
                     show.showAlarm(dataFormat.isAlarm());
+                    show.showServer(dataFormat.isServerConnected());
                 }
             }else if(type.equals("downloadSetting")){
                 //Log.d(tag,rec);

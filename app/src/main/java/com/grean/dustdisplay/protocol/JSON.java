@@ -206,6 +206,9 @@ public class JSON {
         if(jsonObject.has("alarm")) {
             format.setAlarm(jsonObject.getBoolean("alarm"));
         }
+        if(jsonObject.has("serverConnected")){
+            format.setServerConnected(jsonObject.getBoolean("serverConnected"));
+        }
         for(int i=0; i <array.length();i++){
             JSONObject item = array.getJSONObject(i);
             if(item.getString("name").equals("dust")){

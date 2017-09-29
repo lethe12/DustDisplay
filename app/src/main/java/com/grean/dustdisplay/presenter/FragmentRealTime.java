@@ -13,9 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grean.dustdisplay.R;
+import com.grean.dustdisplay.SocketTask;
 import com.grean.dustdisplay.model.ScanRealTimeData;
 import com.grean.dustdisplay.protocol.RealTimeDataFormat;
 import com.tools;
@@ -33,12 +35,15 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
     private TextView tvDust,tvTemperature,tvHumidity,tvPressure,tvWindForce,tvWindDirection,tvNoise,tvState,tvAlarm;
     private String dustString,temperatureString,humidityString,pressureString,windForceString,windDirectionString
             ,noiseString,stateString,initProcessString;
-    private boolean isAlarm;
+    private boolean isAlarm,isLocal,isServer = false;
     private ProcessDialogFragment dialogFragment;
+    private ImageView ivLocal,ivServer;
     private static final int msgShowRealTImeData = 1,
             msgShowAlarmContent = 2,
     msgShowInitProcess = 3,
-    msgFinishInit = 4;
+    msgFinishInit = 4,
+    msgShowLocal = 5,
+    msgShowServer = 6;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -72,6 +77,20 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
                         dialogFragment.dismiss();
                     }
                     break;
+                case msgShowServer:
+                    if(isServer){
+                       ivServer.setImageDrawable(getResources().getDrawable(R.drawable.server_online));
+                    }else {
+                        ivServer.setImageDrawable(getResources().getDrawable(R.drawable.server_offline));
+                    }
+                    break;
+                case msgShowLocal:
+                    if(isLocal){
+                        ivLocal.setImageDrawable(getResources().getDrawable(R.drawable.local_online));
+                    }else{
+                        ivLocal.setImageDrawable(getResources().getDrawable(R.drawable.local_offline));
+                    }
+                    break;
                 default:
                     break;
             }
@@ -94,8 +113,14 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
                 realTimeData.stopInit();
             }
         });
-
         realTimeData.startScan();
+        isLocal = realTimeData.getLocalConnected();
+        if(isLocal){
+            ivLocal.setImageDrawable(getResources().getDrawable(R.drawable.local_online));
+        }else{
+            ivLocal.setImageDrawable(getResources().getDrawable(R.drawable.local_offline));
+        }
+        SocketTask.getInstance().setLocalListener(this);
         return view;
     }
 
@@ -110,6 +135,8 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
         tvState = v.findViewById(R.id.tvRealTimeState);
         tvAlarm = v.findViewById(R.id.tvMainAlarmContent);
         layoutTsp = v.findViewById(R.id.layoutMainTsp);
+        ivLocal = v.findViewById(R.id.ivMainLocal);
+        ivServer = v.findViewById(R.id.ivMainServer);
     }
 
     @Override
@@ -150,5 +177,22 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
     @Override
     public void showFinishInit() {
         handler.sendEmptyMessage(msgFinishInit);
+    }
+
+    @Override
+    public void showServer(boolean connected) {
+        if(isServer!=connected){
+            isServer = connected;
+            handler.sendEmptyMessage(msgShowServer);
+        }
+    }
+
+    @Override
+    public void showLocal(boolean connected) {
+        if(isLocal!=connected){
+            isLocal = connected;
+            handler.sendEmptyMessage(msgShowLocal);
+        }
+
     }
 }

@@ -12,13 +12,32 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="6"
         android:background="@android:color/background_light"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
+            android:layout_width="224dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/logo" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivMainLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/local_offline" />
+
+        <ImageView
+            android:id="@+id/ivMainServer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.03"
+            app:srcCompat="@drawable/server_offline" />
 
         <Space
             android:layout_width="wrap_content"

@@ -2,10 +2,13 @@ package com.grean.dustdisplay.model;
 
 import android.util.Log;
 
+import com.grean.dustdisplay.SocketTask;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
 import com.grean.dustdisplay.protocol.GeneralClientProtocol;
 import com.grean.dustdisplay.protocol.ProtocolLibs;
 import com.tools;
+
+import java.net.Socket;
 
 /**
  * Created by weifeng on 2017/9/13.
@@ -23,6 +26,9 @@ public class ScanRealTimeData {
         clientProtocol = ProtocolLibs.getInstance().getClientProtocol();
     }
 
+    public boolean getLocalConnected(){
+        return SocketTask.getInstance().isConnected();
+    }
 
     public void stopScan(){
         run = false;

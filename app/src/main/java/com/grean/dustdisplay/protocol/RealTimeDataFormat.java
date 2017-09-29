@@ -7,10 +7,18 @@ package com.grean.dustdisplay.protocol;
 public class RealTimeDataFormat {
     private float dust,temperature,humidity,pressure,windForce,windDirection,noise,value;
     private String state;
-    boolean alarm;
+    boolean alarm,serverConnected;
 
     public RealTimeDataFormat(){
 
+    }
+
+    public boolean isServerConnected() {
+        return serverConnected;
+    }
+
+    public void setServerConnected(boolean serverConnected) {
+        this.serverConnected = serverConnected;
     }
 
     public boolean isAlarm() {

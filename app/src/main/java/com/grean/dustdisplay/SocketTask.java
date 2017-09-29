@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.grean.dustdisplay.presenter.NotifyOperateInfo;
 import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
+import com.grean.dustdisplay.presenter.ShowRealTimeData;
 import com.grean.dustdisplay.protocol.GeneralClientProtocol;
 
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class SocketTask {
     private String heartString = "Grean.com.cn";
     NotifyProcessDialogInfo notifyProcessDialogInfo;
     NotifyOperateInfo notifyOperateInfo;
+    private ShowRealTimeData show;
     private GeneralClientProtocol clientProtocol;
     private ConcurrentLinkedQueue<byte[]> sendBuffer = new ConcurrentLinkedQueue<byte[]>();
 
@@ -54,8 +56,15 @@ public class SocketTask {
 
     }
 
+    public static boolean isConnected() {
+        return connected;
+    }
 
-    public void resetSocketClient(String ip,int port,NotifyOperateInfo notifyOperateInfo,NotifyProcessDialogInfo notifyProcessDialogInfo){
+    public void setLocalListener(ShowRealTimeData show){
+        this.show = show;
+    }
+
+    public void resetSocketClient(String ip, int port, NotifyOperateInfo notifyOperateInfo, NotifyProcessDialogInfo notifyProcessDialogInfo){
         this.notifyProcessDialogInfo = notifyProcessDialogInfo;
         this.notifyOperateInfo = notifyOperateInfo;
         this.serverIp = ip;
@@ -123,7 +132,9 @@ public class SocketTask {
                 if(notifyOperateInfo!=null){
                     notifyOperateInfo.cancelDialog();
                 }
-
+                if(show!=null){
+                    show.showLocal(true);
+                }
                 while (connected){
                     if (socketClient.isConnected()){
                         while ((count = receive.read(readBuff))!=-1 && connected){
@@ -140,6 +151,9 @@ public class SocketTask {
                 }
             } catch (IOException e) {
                 connected = false;
+                if(show!=null){
+                    show.showLocal(false);
+                }
                 Log.d(tag,"找不到服务器");
                 if(notifyProcessDialogInfo!=null){
                     notifyProcessDialogInfo.showInfo("服务器未开启");
@@ -148,6 +162,9 @@ public class SocketTask {
                     notifyOperateInfo.cancelDialog();
                 }
                 e.printStackTrace();
+            }
+            if(show!=null){
+                show.showLocal(false);
             }
 
         }
