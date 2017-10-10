@@ -243,7 +243,7 @@
                 android:background="@android:color/background_light">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView108"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -263,7 +263,7 @@
                     android:textSize="60sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -283,7 +283,7 @@
                 android:background="@android:color/background_light">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView308"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -303,7 +303,7 @@
                     android:textSize="60sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView304"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -323,7 +323,7 @@
                 android:background="@android:color/background_light">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textView208"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -343,7 +343,7 @@
                     android:textSize="60sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView204"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

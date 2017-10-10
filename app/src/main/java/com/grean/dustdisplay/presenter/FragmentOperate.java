@@ -122,7 +122,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         setting.loadSetting();
         system = new OperateSystem();
         dialogFragment = new ProcessDialogFragment();
-        dialogFragment.setCancelable(false);
+        dialogFragment.setCancelable(true);
         dialogFragment.show(getFragmentManager(),"OperateInfo");
         tvSoftwareVersion.setText("当前软件版本:"+getString(R.string.app_versions)+" ");
         return view;

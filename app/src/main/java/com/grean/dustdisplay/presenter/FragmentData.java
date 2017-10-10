@@ -85,7 +85,7 @@ public class FragmentData extends Fragment implements View.OnClickListener ,Noti
         setElement(historyDataPanelAdapter);
         searchData = new SearchData(this);
         dialogFragment = new ProcessDialogFragment();
-        dialogFragment.setCancelable(false);
+        dialogFragment.setCancelable(true);
         dialogFragment.show(getFragmentManager(),"DataInfo");
         long now = tools.nowtime2timestamp();
         tvDateEnd.setText(tools.timestamp2string(now));
@@ -174,13 +174,13 @@ public class FragmentData extends Fragment implements View.OnClickListener ,Noti
                 break;
             case R.id.btnDataPageDown:
                 dialogFragment = new ProcessDialogFragment();
-                dialogFragment.setCancelable(false);
+                dialogFragment.setCancelable(true);
                 dialogFragment.show(getFragmentManager(),"DataInfo");
                 searchData.pageDown();
                 break;
             case R.id.btnDataPageUp:
                 dialogFragment = new ProcessDialogFragment();
-                dialogFragment.setCancelable(false);
+                dialogFragment.setCancelable(true);
                 dialogFragment.show(getFragmentManager(),"DataInfo");
                 searchData.pageUp();
                 break;
@@ -246,7 +246,7 @@ public class FragmentData extends Fragment implements View.OnClickListener ,Noti
     @Override
     public void searchHistoryData() {
         dialogFragment = new ProcessDialogFragment();
-        dialogFragment.setCancelable(false);
+        dialogFragment.setCancelable(true);
         dialogFragment.show(getFragmentManager(),"SearchData");
         searchData.readHistoryData(tvDateStart.getText().toString(),tvDateEnd.getText().toString());
     }
