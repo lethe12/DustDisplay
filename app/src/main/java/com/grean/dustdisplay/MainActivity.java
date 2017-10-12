@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(fragmentOperate!=null){
             transaction.hide(fragmentOperate);
+            //transaction.remove(fragmentOperate);
         }
         if(fragmentRealTime!=null){
             transaction.hide(fragmentRealTime);

@@ -9,13 +9,16 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -35,9 +38,11 @@ import java.util.Calendar;
  */
 
 public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected,AdapterView.OnItemSelectedListener{
+    private static final String tag = "FragmentOperate";
     private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo,tvSoftwareVersion;
     private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode,etAlarm;
-    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,btnSaveAlarm,btnDustMeterCalZero;
+    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,btnSaveAlarm,btnDustMeterCalZero,btnUpdateSetting;
+    private ScrollView svContent;
     private Spinner spProtocol;
     private Switch swAutoCalEnable;
     private LoadSetting setting;
@@ -154,6 +159,22 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         etAlarm = v.findViewById(R.id.etOperateAlarm);
         btnSaveAlarm = v.findViewById(R.id.btnOperateSaveAlarm);
         btnDustMeterCalZero = v.findViewById(R.id.btnOperateCalZero);
+        btnUpdateSetting = v.findViewById(R.id.btnOperateUpdateSetting);
+        /*svContent = v.findViewById(R.id.svOperateContent);
+        //svContent.setOn
+        svContent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction()==MotionEvent.ACTION_SCROLL){
+                    Log.d(tag,"下拉");
+                    setting.loadSetting();
+                    dialogFragment = new ProcessDialogFragment();
+                    dialogFragment.setCancelable(true);
+                    dialogFragment.show(getFragmentManager(),"OperateInfo");
+                }
+                return false;
+            }
+        });*/
         btnDustMeterCalZero.setOnClickListener(this);
         btnSaveAlarm.setOnClickListener(this);
         spProtocol = v.findViewById(R.id.spOperateProticol);
@@ -169,7 +190,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         btnVideoPreview.setOnClickListener(this);
         btnVideoSetting.setOnClickListener(this);
         swAutoCalEnable.setOnClickListener(this);
+        btnUpdateSetting.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View view) {
@@ -252,6 +275,12 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 dialogFragment.setCancelable(false);
                 dialogFragment.show(getFragmentManager(),"Calibration");
                 setting.startDustMeterCalZero(dialogFragment);
+                break;
+            case R.id.btnOperateUpdateSetting:
+                setting.loadSetting();
+                dialogFragment = new ProcessDialogFragment();
+                dialogFragment.setCancelable(true);
+                dialogFragment.show(getFragmentManager(),"OperateInfo");
                 break;
             default:
 
