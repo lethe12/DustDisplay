@@ -286,9 +286,9 @@ public class FragmentData extends Fragment implements View.OnClickListener ,Noti
             long now = tools.nowtime2timestamp();
             if(time >= now){
                 time = now;
-                tvDateStart.setText(tools.timestamp2string(time));
+                tvDateEnd.setText(tools.timestamp2string(time));
             }else{
-                tvDateStart.setText(string);
+                tvDateEnd.setText(string);
             }
             dataInfo.searchHistoryData();
         }
