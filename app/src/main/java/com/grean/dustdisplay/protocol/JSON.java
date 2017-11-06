@@ -129,6 +129,14 @@ public class JSON {
         return object.toString().getBytes();
     }
 
+    public static byte[] operateDustSetParaK(float parameter) throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operate");
+        object.put("DustMeterSetParaK",true);
+        object.put("DustMeterParaK",parameter);
+        return object.toString().getBytes();
+    }
+
     public static byte[] operateDustMeterCal() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");

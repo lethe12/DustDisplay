@@ -39,9 +39,10 @@ import java.util.Calendar;
 
 public class FragmentOperate extends Fragment implements View.OnClickListener ,ShowOperateInfo,DialogTimeSelected,AdapterView.OnItemSelectedListener{
     private static final String tag = "FragmentOperate";
-    private TextView tvDustMeterTitle,tvDustMeterParaK,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo,tvSoftwareVersion;
-    private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode,etAlarm;
-    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,btnSaveAlarm,btnDustMeterCalZero,btnUpdateSetting;
+    private TextView tvDustMeterTitle,tvAutoCalDate,tvSystemTitle,tvDustMeterInfo,tvSoftwareVersion;//tvDustMeterParaK
+    private EditText etDustTarget,etAutoCalInterval,etServerIp,etServerPort,etSoftwareUpdateUrl,etMnCode,etAlarm,etDustParaK;
+    private Button btnDustCal,btnAutoSave,btnDustMeterCal,btnSaveServer,btnSoftwareUpdate,btnVideoPreview,btnVideoSetting,
+            btnSaveAlarm,btnDustMeterCalZero,btnUpdateSetting,btnDustMeterSetParaK;
     private ScrollView svContent;
     private Spinner spProtocol;
     private Switch swAutoCalEnable;
@@ -68,7 +69,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case msgShowSetting:
-                    tvDustMeterParaK.setText(paraKString);
+                   // tvDustMeterParaK.setText(paraKString);
+                    etDustParaK.setText(paraKString);
                     etAutoCalInterval.setText(autoCalIntervalString);
                     etServerIp.setText(serverIpString);
                     etServerPort.setText(serverPortString);
@@ -96,7 +98,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                     spProtocol.setSelection(protocolName);
                     break;
                 case msgShowParaK:
-                    tvDustMeterParaK.setText(paraKString);
+                    //tvDustMeterParaK.setText(paraKString);
+                    etDustParaK.setText(paraKString);
                     break;
                 case msgShowToast:
                     Toast.makeText(getActivity(),toastString,Toast.LENGTH_SHORT).show();
@@ -135,7 +138,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
 
     void initView(View v){
         tvDustMeterTitle = v.findViewById(R.id.tvOperateDustMeterTitle);
-        tvDustMeterParaK = v.findViewById(R.id.tvOperateParaK);
+        //tvDustMeterParaK = v.findViewById(R.id.tvOperateParaK);
+        etDustParaK = v.findViewById(R.id.etOperateDustParaK);
         tvAutoCalDate = v.findViewById(R.id.tvOperateAutoCalDate);
         tvSystemTitle = v.findViewById(R.id.tvOperateSystemTitle);
         tvDustMeterInfo = v.findViewById(R.id.tvOperateDustMeterInfo);
@@ -160,6 +164,8 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         btnSaveAlarm = v.findViewById(R.id.btnOperateSaveAlarm);
         btnDustMeterCalZero = v.findViewById(R.id.btnOperateCalZero);
         btnUpdateSetting = v.findViewById(R.id.btnOperateUpdateSetting);
+        btnDustMeterSetParaK = v.findViewById(R.id.btnOperateDustSetParaK);
+        btnDustMeterSetParaK.setOnClickListener(this);
         /*svContent = v.findViewById(R.id.svOperateContent);
         //svContent.setOn
         svContent.setOnTouchListener(new View.OnTouchListener() {
@@ -281,6 +287,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 dialogFragment = new ProcessDialogFragment();
                 dialogFragment.setCancelable(true);
                 dialogFragment.show(getFragmentManager(),"OperateInfo");
+                break;
+            case R.id.btnOperateDustSetParaK:
+                setting.setDustParaK(Float.valueOf(etDustParaK.getText().toString()));
                 break;
             default:
 

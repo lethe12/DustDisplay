@@ -16,6 +16,7 @@ public interface GeneralClientProtocol {
     void sendScanCommand();
     void sendLoadSetting(ShowOperateInfo info);
     void sendCalDust(ShowOperateInfo info,float target);
+    void sendSetDustMeterParaK(float parameter);
     void sendUploadSetting(SettingFormat format);
     void sendDustMeterCalStart(NotifyProcessDialogInfo dialogInfo);
     void sendDustMeterCalZeroStart(NotifyProcessDialogInfo dialogInfo);

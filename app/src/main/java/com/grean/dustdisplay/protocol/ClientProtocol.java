@@ -130,6 +130,15 @@ public class ClientProtocol implements GeneralClientProtocol{
     }
 
     @Override
+    public void sendSetDustMeterParaK(float parameter) {
+        try {
+            SocketTask.getInstance().send(JSON.operateDustSetParaK(parameter));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void sendUploadSetting(SettingFormat format) {
         try {
             SocketTask.getInstance().send(JSON.uploadSetting(format));
