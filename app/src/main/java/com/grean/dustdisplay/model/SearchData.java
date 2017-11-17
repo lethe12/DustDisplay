@@ -26,11 +26,18 @@ public class SearchData {
         Log.d(tag,startString+":"+endString);
         nowPage = 1;
         now = start;
+        long time;
         if(start < end){
-            allPages = (int)((end - start)/3600000l)+1;
+            time = end - start;
         }else {
-            allPages = (int)((start - end)/3600000l)+1;
+            time = start - end;
         }
+        if((time%3600000l)!=0){
+            allPages = (int) (time/3600000l)+1;
+        }else{
+            allPages = (int) (time / 3600000l);
+        }
+
         ProtocolLibs.getInstance().getClientProtocol().sendHistoryData(dataInfo,now);
         dataInfo.upDatePages(nowPage,allPages);
     }
