@@ -13,4 +13,5 @@ public interface ShowRealTimeData {
     void showFinishInit();
     void showServer(boolean connected);
     void showLocal(boolean connected);
+    void showDustName(String name);
 }

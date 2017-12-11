@@ -32,9 +32,9 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
     private static final String tag = "FragmentRealTime";
     private ScanRealTimeData realTimeData;
     private View layoutTsp;
-    private TextView tvDust,tvTemperature,tvHumidity,tvPressure,tvWindForce,tvWindDirection,tvNoise,tvState,tvAlarm;
+    private TextView tvDust,tvTemperature,tvHumidity,tvPressure,tvWindForce,tvWindDirection,tvNoise,tvState,tvAlarm,tvDustName;
     private String dustString,temperatureString,humidityString,pressureString,windForceString,windDirectionString
-            ,noiseString,stateString,initProcessString;
+            ,noiseString,stateString,initProcessString,dustNameString;
     private boolean isAlarm,isLocal,isServer = false;
     private ProcessDialogFragment dialogFragment;
     private ImageView ivLocal,ivServer;
@@ -43,7 +43,8 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
     msgShowInitProcess = 3,
     msgFinishInit = 4,
     msgShowLocal = 5,
-    msgShowServer = 6;
+    msgShowServer = 6,
+    msgShowDustName = 7;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -91,6 +92,9 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
                         ivLocal.setImageDrawable(getResources().getDrawable(R.drawable.local_offline));
                     }
                     break;
+                case msgShowDustName:
+                    tvDustName.setText(dustNameString);
+                    break;
                 default:
                     break;
             }
@@ -137,6 +141,7 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
         layoutTsp = v.findViewById(R.id.layoutMainTsp);
         ivLocal = v.findViewById(R.id.ivMainLocal);
         ivServer = v.findViewById(R.id.ivMainServer);
+        tvDustName = v.findViewById(R.id.tvRealTimeDustName);
     }
 
     @Override
@@ -194,5 +199,11 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
             handler.sendEmptyMessage(msgShowLocal);
         }
 
+    }
+
+    @Override
+    public void showDustName(String name) {
+        dustNameString = name;
+        handler.sendEmptyMessage(msgShowDustName);
     }
 }

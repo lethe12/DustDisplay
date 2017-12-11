@@ -45,6 +45,11 @@ public class ClientProtocol implements GeneralClientProtocol{
                 if(info!=null) {
                     info.show(format);
                 }
+            }else if(type.equals("operateInit")){
+                String name = JSON.getDustName(jsonObject);
+                if(show!=null){
+                  show.showDustName(name);
+                }
             }else if(type.equals("operate")){
                 //Log.d(tag,rec);
                 if(jsonObject.has("DustCal")){
@@ -106,6 +111,16 @@ public class ClientProtocol implements GeneralClientProtocol{
             SocketTask.getInstance().send(JSON.readRealTimeData());
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean sendGetOperateInit() {
+        try {
+            return SocketTask.getInstance().send(JSON.readOperateInit());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

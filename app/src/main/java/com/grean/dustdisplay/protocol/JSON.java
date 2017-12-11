@@ -58,6 +58,12 @@ public class JSON {
         return object.toString().getBytes();
     }
 
+    public static byte[] readOperateInit() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("protocolType","operateInit");
+        return object.toString().getBytes();
+    }
+
     public static ExportDataInfo getExportDataProcess(JSONObject jsonObject) throws JSONException {
         ExportDataInfo info = new ExportDataInfo();
         info.setProcess(jsonObject.getInt("process"));
@@ -93,6 +99,20 @@ public class JSON {
             format.setProtocolNames(names);
         }
         return format;
+    }
+
+    public static String getDustName(JSONObject jsonObject) throws JSONException {
+        JSONArray array = jsonObject.getJSONArray("dustNames");
+        int size = array.length();
+        if(size!=0){
+            String[] names = new String[size];
+            for(int i=0;i<size;i++){
+                names[i] = array.getString(i);
+            }
+            int name = jsonObject.getInt("dustName");
+            return names[name];
+        }
+        return "TSP";
     }
 
     public static HistoryDataContent getHistoryData(JSONObject jsonObject) throws JSONException {

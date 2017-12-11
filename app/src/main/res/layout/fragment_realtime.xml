@@ -76,14 +76,14 @@
                 android:background="@android:color/background_light">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/tvRealTimeDustName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="TSP"
+                    android:text="NoName"
                     android:textSize="36sp" />
 
                 <TextView

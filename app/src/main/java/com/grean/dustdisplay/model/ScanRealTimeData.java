@@ -54,7 +54,8 @@ public class ScanRealTimeData {
         public void run() {
             //初始化
             long now = tools.nowtime2timestamp();
-            long end = now + 300000l;
+           // long end = now + 300000l;
+            long end = now + 30000l;
             initRun = true;
             int i=0,restTime=300,j=0;
             show.showInitProcess(restTime);
@@ -83,7 +84,22 @@ public class ScanRealTimeData {
             }
             Log.d(tag,"stop init");
             show.showFinishInit();
-            //开始查询
+            //查询信息
+            Log.d(tag,"查询信息");
+            i=0;
+            while (!clientProtocol.sendGetOperateInit()){
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                i++;
+                if(i>200){
+                    break;
+                }
+            }
+            Log.d(tag,"查询数据");
+            //开始查询数据
             run = true;
             while (run&&!interrupted()){
                 clientProtocol.sendScanCommand();

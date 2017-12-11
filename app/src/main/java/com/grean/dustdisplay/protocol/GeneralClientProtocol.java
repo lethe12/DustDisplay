@@ -14,6 +14,7 @@ public interface GeneralClientProtocol {
     void handleReceiveData(String rec);
     void setShowRealTimeData(ShowRealTimeData showRealTimeData);
     void sendScanCommand();
+    boolean sendGetOperateInit();
     void sendLoadSetting(ShowOperateInfo info);
     void sendCalDust(ShowOperateInfo info,float target);
     void sendSetDustMeterParaK(float parameter);
