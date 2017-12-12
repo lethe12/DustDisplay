@@ -1,5 +1,6 @@
 package com.grean.dustdisplay.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.grean.dustdisplay.SocketTask;
@@ -20,10 +21,14 @@ public class ScanRealTimeData {
     private boolean run = false,initRun = false;
     private ScanDataThread thread;
     private GeneralClientProtocol clientProtocol;
+    private ConfigOperate config;
+    private String dustName;
 
-    public ScanRealTimeData(ShowRealTimeData showRealTimeData){
+    public ScanRealTimeData(ShowRealTimeData showRealTimeData,Context context){
         this.show = showRealTimeData;
         clientProtocol = ProtocolLibs.getInstance().getClientProtocol();
+        config = ConfigOperate.getInstance(context);
+        dustName = config.getConfigString("DustName");
     }
 
     public boolean getLocalConnected(){
@@ -42,6 +47,13 @@ public class ScanRealTimeData {
         }
     }
 
+    public String getDustName(){
+        return dustName;
+    }
+
+    public void saveDustName(String name){
+        config.saveConfig("DustName",name);
+    }
     /**
      * 跳过初始化
      */
@@ -54,8 +66,8 @@ public class ScanRealTimeData {
         public void run() {
             //初始化
             long now = tools.nowtime2timestamp();
-           // long end = now + 300000l;
-            long end = now + 30000l;
+            long end = now + 300000l;
+            //long end = now + 30000l;
             initRun = true;
             int i=0,restTime=300,j=0;
             show.showInitProcess(restTime);

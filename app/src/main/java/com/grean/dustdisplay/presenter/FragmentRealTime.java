@@ -28,7 +28,7 @@ import com.tools;
  * Created by weifeng on 2017/9/12.
  */
 
-public class FragmentRealTime extends Fragment implements ShowRealTimeData{
+public class FragmentRealTime extends Fragment implements ShowRealTimeData,DialogDestroyListener{
     private static final String tag = "FragmentRealTime";
     private ScanRealTimeData realTimeData;
     private View layoutTsp;
@@ -94,6 +94,7 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
                     break;
                 case msgShowDustName:
                     tvDustName.setText(dustNameString);
+                    realTimeData.saveDustName(dustNameString);
                     break;
                 default:
                     break;
@@ -105,18 +106,26 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_realtime,container,false);
         initView(view);
-        realTimeData = new ScanRealTimeData(this);
+        realTimeData = new ScanRealTimeData(this,getActivity());
         dialogFragment = new ProcessDialogFragment();
         dialogFragment.setCancelable(true);
         dialogFragment.show(getFragmentManager(),"Init");
-        dialogFragment.onCancel(new Dialog(getActivity()){
+        dialogFragment.setDestroyListener(this);
+        /*dialogFragment.onCancel(new Dialog(getActivity()){
             @Override
             public void setOnCancelListener(@Nullable OnCancelListener listener) {
                 Log.d(tag,"cancel Init Dialog");
                 super.setOnCancelListener(listener);
                 realTimeData.stopInit();
             }
-        });
+        });*/
+       /* dialogFragment.onDismiss(new Dialog(getActivity()){
+            @Override
+            public void setOnDismissListener(@Nullable OnDismissListener listener) {
+                Log.d(tag,"disMiss Init Dialog");
+                super.setOnDismissListener(listener);
+            }
+        });*/
         realTimeData.startScan();
         isLocal = realTimeData.getLocalConnected();
         if(isLocal){
@@ -125,6 +134,7 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
             ivLocal.setImageDrawable(getResources().getDrawable(R.drawable.local_offline));
         }
         SocketTask.getInstance().setLocalListener(this);
+        tvDustName.setText(realTimeData.getDustName());
         return view;
     }
 
@@ -205,5 +215,11 @@ public class FragmentRealTime extends Fragment implements ShowRealTimeData{
     public void showDustName(String name) {
         dustNameString = name;
         handler.sendEmptyMessage(msgShowDustName);
+    }
+
+    @Override
+    public void onComplete() {
+        Log.d(tag,"cancel Init Dialog");
+        realTimeData.stopInit();
     }
 }

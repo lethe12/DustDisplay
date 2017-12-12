@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.grean.dustdisplay.R;
 public class ProcessDialogFragment extends DialogFragment implements NotifyProcessDialogInfo{
     private TextView tvInfo;
     private String string;
+    private DialogDestroyListener destroyListener;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -27,6 +29,19 @@ public class ProcessDialogFragment extends DialogFragment implements NotifyProce
             }
         }
     };
+
+    @Override
+    public void onDestroy() {
+        Log.d("ProcessDialogFragment","cancel Init Dialog");
+        if(destroyListener!=null){
+            destroyListener.onComplete();
+        }
+        super.onDestroy();
+    }
+
+    public void setDestroyListener (DialogDestroyListener listener){
+        this.destroyListener = listener;
+    }
 
     @Nullable
     @Override
