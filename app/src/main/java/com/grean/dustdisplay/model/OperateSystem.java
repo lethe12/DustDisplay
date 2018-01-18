@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.os.Process;
 import android.util.Log;
 
+import com.grean.dustdisplay.SocketTask;
 import com.grean.dustdisplay.myApplication;
 import com.grean.dustdisplay.presenter.NotifyOperateInfo;
 import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
@@ -26,6 +27,15 @@ public class OperateSystem {
 
     public void startDownLoadSoftware(Context context, String url, NotifyProcessDialogInfo processDialogInfo, ShowOperateInfo operateInfo){
         new Thread(new DownloadRunnable(context,url,processDialogInfo,operateInfo)).start();
+    }
+
+    public void connectServer(boolean connect){
+        if(connect) {
+            SocketTask.getInstance().restartSocketHeart();
+
+        }else{
+            SocketTask.getInstance().stopSocketHeart();
+        }
     }
 
     private class DownloadRunnable implements Runnable{

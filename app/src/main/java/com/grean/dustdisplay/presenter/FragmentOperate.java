@@ -45,7 +45,7 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
             btnSaveAlarm,btnDustMeterCalZero,btnUpdateSetting,btnDustMeterSetParaK;
     private ScrollView svContent;
     private Spinner spProtocol;
-    private Switch swAutoCalEnable;
+    private Switch swAutoCalEnable,swConnectServer;
     private LoadSetting setting;
     private View layoutDustMeter,layoutSystem;
     private ProcessDialogFragment dialogFragment;
@@ -165,7 +165,10 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
         btnDustMeterCalZero = v.findViewById(R.id.btnOperateCalZero);
         btnUpdateSetting = v.findViewById(R.id.btnOperateUpdateSetting);
         btnDustMeterSetParaK = v.findViewById(R.id.btnOperateDustSetParaK);
+        swConnectServer = v.findViewById(R.id.swOperateConnect);
+        swConnectServer.setOnClickListener(this);
         btnDustMeterSetParaK.setOnClickListener(this);
+
         /*svContent = v.findViewById(R.id.svOperateContent);
         //svContent.setOn
         svContent.setOnTouchListener(new View.OnTouchListener() {
@@ -290,6 +293,9 @@ public class FragmentOperate extends Fragment implements View.OnClickListener ,S
                 break;
             case R.id.btnOperateDustSetParaK:
                 setting.setDustParaK(Float.valueOf(etDustParaK.getText().toString()));
+                break;
+            case R.id.swOperateConnect:
+                system.connectServer(swConnectServer.isChecked());
                 break;
             default:
 

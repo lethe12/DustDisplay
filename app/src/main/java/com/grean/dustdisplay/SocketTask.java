@@ -106,6 +106,26 @@ public class SocketTask {
         }
     }
 
+    public void restartSocketHeart(){
+        if (!heartRun){
+            heartThread = new HeartThread();
+            heartThread.start();
+        }
+    }
+
+    public void stopSocketHeart(){
+        heartRun = false;
+        connected = false;
+         try {
+            if(socketClient!=null){
+                socketClient.shutdownInput();
+                socketClient.shutdownOutput();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private class ReceiverThread extends Thread{
         @Override
         public void run() {
@@ -166,7 +186,6 @@ public class SocketTask {
             if(show!=null){
                 show.showLocal(false);
             }
-
         }
     }
 
@@ -275,13 +294,15 @@ public class SocketTask {
                         e.printStackTrace();
                     }
                 }else{
-                    socketClient = new Socket();
-                    receiverThread = new ReceiverThread();
-                    receiverThread.start();
-                    try {
-                        Thread.sleep(9900);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if(heartRun) {
+                        socketClient = new Socket();
+                        receiverThread = new ReceiverThread();
+                        receiverThread.start();
+                        try {
+                            Thread.sleep(9900);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
