@@ -87,6 +87,9 @@ public class JSON {
         format.setServerPort(jsonObject.getInt("serverPort"));
         format.setMnCode(jsonObject.getString("mnCode"));
         format.setParaK((float) jsonObject.getDouble("dustParaK"));
+        if(jsonObject.has("dustParaB")){
+            format.setParaB((float) jsonObject.getDouble("dustParaB"));
+        }
         format.setAlarmDust((float) jsonObject.getDouble("alarmDust"));
         format.setProtocolName(jsonObject.getInt("clientProtocolName"));
         JSONArray array = jsonObject.getJSONArray("clientProtocolNames");
@@ -151,11 +154,12 @@ public class JSON {
         return object.toString().getBytes();
     }
 
-    public static byte[] operateDustSetParaK(float parameter) throws JSONException {
+    public static byte[] operateDustSetParaK(float k,float b) throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("DustMeterSetParaK",true);
-        object.put("DustMeterParaK",parameter);
+        object.put("DustMeterParaK",k);
+        object.put("DustMeterParaB",b);
         return object.toString().getBytes();
     }
 

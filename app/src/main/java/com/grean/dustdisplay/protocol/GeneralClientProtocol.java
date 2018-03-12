@@ -17,7 +17,7 @@ public interface GeneralClientProtocol {
     boolean sendGetOperateInit();
     void sendLoadSetting(ShowOperateInfo info);
     void sendCalDust(ShowOperateInfo info,float target);
-    void sendSetDustMeterParaK(float parameter);
+    void sendSetDustMeterParaK(float k,float b);
     void sendUploadSetting(SettingFormat format);
     void sendDustMeterCalStart(NotifyProcessDialogInfo dialogInfo);
     void sendDustMeterCalZeroStart(NotifyProcessDialogInfo dialogInfo);

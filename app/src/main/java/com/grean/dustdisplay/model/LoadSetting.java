@@ -34,8 +34,8 @@ public class LoadSetting implements DustMeterCalCtrl{
         ProtocolLibs.getInstance().getClientProtocol().sendCalDust(info,target);
     }
 
-    public void setDustParaK(float para){
-        ProtocolLibs.getInstance().getClientProtocol().sendSetDustMeterParaK(para);
+    public void setDustParaK(float k,float b){
+        ProtocolLibs.getInstance().getClientProtocol().sendSetDustMeterParaK(k,b);
     }
 
     public void getDustMeterInfo(ShowOperateInfo info){

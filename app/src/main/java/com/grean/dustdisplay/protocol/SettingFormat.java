@@ -9,7 +9,7 @@ public class SettingFormat {
     private long autoCalDate,autoCalInterval;
     private int serverPort,protocolName;
     private String serverIp,mnCode;
-    private float paraK,alarmDust;
+    private float paraK,paraB,alarmDust;
     private String[] protocolNames;
 
     public int getProtocolName() {
@@ -50,6 +50,14 @@ public class SettingFormat {
 
     public void setParaK(float paraK) {
         this.paraK = paraK;
+    }
+
+    public float getParaB() {
+        return paraB;
+    }
+
+    public void setParaB(float paraB) {
+        this.paraB = paraB;
     }
 
     public boolean isAutoCalEnable() {
