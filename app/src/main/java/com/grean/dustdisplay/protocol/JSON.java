@@ -16,30 +16,62 @@ import org.json.JSONObject;
 * */
 public class JSON {
     private static final String tag="JSON";
+    public static boolean isFrameRight(String content){
+        if(content.length() <12){
+            return false;
+        }
+
+        if(!content.substring(0,2).equals("##")){
+            return false;
+        }
+
+        if(!content.substring(content.length()-2,content.length()).equals("\r\n")){
+            return false;
+        }
+
+        String string = content.substring(2,content.indexOf("$$"));
+        try{
+            int len = Integer.valueOf(string);
+            if(len!=(content.length()-12)){
+                return false;
+            }
+        }catch (NumberFormatException e){
+            return false;
+        }
+
+        return true;
+    }
+
+    private static byte[] insertFrame(String content){
+        String lenString = String.format("%06d",content.length());
+        return ("##"+lenString+"$$"+content+"\r\n").getBytes();
+    }
+
+
     public static byte[] readRealTimeData() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","realTimeData");
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] readSetting() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","downloadSetting");
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] readDustMeterInfo() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("DustMeterInfo",true);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] readHistoryData(long date) throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","historyData");
         object.put("Date",date);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] exportData(long start,long end) throws JSONException {
@@ -48,20 +80,20 @@ public class JSON {
         object.put("ExportData",true);
         object.put("start",start);
         object.put("end",end);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] readExportDataProcess() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("ExportDataProcess",true);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] readOperateInit() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operateInit");
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static ExportDataInfo getExportDataProcess(JSONObject jsonObject) throws JSONException {
@@ -151,7 +183,7 @@ public class JSON {
         object.put("protocolType","operate");
         object.put("DustCal",true);
         object.put("target",target);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] operateDustSetParaK(float k,float b) throws JSONException {
@@ -160,35 +192,35 @@ public class JSON {
         object.put("DustMeterSetParaK",true);
         object.put("DustMeterParaK",k);
         object.put("DustMeterParaB",b);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] operateDustMeterCal() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("DustMeterCal",true);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] operateDustMeterCalZero() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("DustMeterCalZero",true);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] operateDustMeterCalResult() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("DustMeterCalResult",true);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static byte[] operateDustMeterCalProcess() throws JSONException {
         JSONObject object = new JSONObject();
         object.put("protocolType","operate");
         object.put("DustMeterCalProcess",true);
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
     public static String getDustMeterCalResult(JSONObject jsonObject) throws JSONException {
@@ -229,7 +261,7 @@ public class JSON {
         object.put("mnCode",format.getMnCode());
         object.put("alarmDust",format.getAlarmDust());
         object.put("clientProtocolName",format.getProtocolName());
-        return object.toString().getBytes();
+        return insertFrame(object.toString());
     }
 
 

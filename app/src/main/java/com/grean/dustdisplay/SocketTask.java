@@ -9,6 +9,7 @@ import com.grean.dustdisplay.presenter.NotifyOperateInfo;
 import com.grean.dustdisplay.presenter.NotifyProcessDialogInfo;
 import com.grean.dustdisplay.presenter.ShowRealTimeData;
 import com.grean.dustdisplay.protocol.GeneralClientProtocol;
+import com.grean.dustdisplay.protocol.JSON;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -160,7 +161,9 @@ public class SocketTask {
                         while ((count = receive.read(readBuff))!=-1 && connected){
                             String content = new String(readBuff,0,count);
                             //Log.d(tag,"TCP Content:"+content);
-                            clientProtocol.handleReceiveData(content);
+                            if(JSON.isFrameRight(content)) {
+                                clientProtocol.handleReceiveData(content.substring(content.indexOf("$$") + 2, content.indexOf("\r\n")));
+                            }
                         }
                         connected = false;
                         break;
